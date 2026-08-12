@@ -9,29 +9,30 @@
     <img src="https://img.shields.io/badge/Electron-34-47848F" alt="Electron 34">
     <img src="https://img.shields.io/badge/TypeScript-5-3178C6" alt="TypeScript 5">
     <img src="https://img.shields.io/badge/数据-本地优先-D85F42" alt="本地优先">
-    <img src="https://img.shields.io/badge/版本-1.0.0-111111" alt="BeiyeMD 1.0.0">
+    <img src="https://img.shields.io/badge/版本-1.1.0-111111" alt="BeiyeMD 1.1.0">
     <img src="https://img.shields.io/github/v/release/chenzhiyong1994/BeiyeMD?display_name=tag&color=111111" alt="最新版本">
     <img src="https://img.shields.io/github/stars/chenzhiyong1994/BeiyeMD?style=flat&color=111111" alt="GitHub stars">
   </p>
 </div>
 
-![北页 1.0 多文档工作区](docs/screenshots/beiyemd-workspace.png)
+![北页 1.1 多文档工作区](docs/screenshots/beiyemd-workspace.png)
 
 <p align="center">
-  <a href="https://github.com/chenzhiyong1994/BeiyeMD/releases/latest"><strong>下载 BeiyeMD 1.0.0 for Windows</strong></a>
+  <a href="https://github.com/chenzhiyong1994/BeiyeMD/releases/latest"><strong>下载 BeiyeMD 1.1.0（Windows / macOS）</strong></a>
   ·
   <a href="#从源码启动">从源码运行</a>
 </p>
 
 北页帮助你更轻快地查阅和编辑 Markdown 文件。快速打开本地文档，在一个专注轻巧的窗口里阅读排版、核对原文、管理多份文件；不要求导入，也不建立私有文档库。
 
-## 1.0.0 正式版
+## 1.1.0 · Windows 与 macOS
 
-这是北页第一个面向日常使用的稳定版本：从多文档工作区、预览与源码双模式，到 Markdown 检查、表格列宽和图片尺寸调整，核心写作流程已经连成一体。Windows 安装包、SHA-256 校验值与完整更新说明均发布在 [GitHub Releases](https://github.com/chenzhiyong1994/BeiyeMD/releases/tag/v1.0.0)。
+北页现已同时提供 Windows 与 macOS 版本。macOS 安装包分别适配 Apple 芯片 `arm64` 和 Intel 芯片 `x64`，并在对应的 GitHub macOS 构建环境中检查应用架构、临时签名、文件关联和 DMG 完整性。安装包与统一的 SHA-256 校验文件发布在 [GitHub Releases](https://github.com/chenzhiyong1994/BeiyeMD/releases/tag/v1.1.0)。
 
 - **打开就能看，随手就能改**：不注册账号，不迁移文档，选择本地 Markdown 文件即可开始。
 - **排版和源码不割裂**：预览模式看结构，源码模式用固定行号与查找高亮定位语法。
 - **为多文档而生**：批量打开、快速切换、跨文档搜索和实时外部刷新都在一个窗口完成。
+- **更自然的 Mac 体验**：支持 Finder 打开文件、`Command` 快捷键、红黄绿窗口按钮避让和多个文件进入同一工作区。
 
 ## 为什么做北页
 
@@ -80,11 +81,17 @@
 
 ## 下载
 
-Windows x64 用户可从 [GitHub Releases](https://github.com/chenzhiyong1994/BeiyeMD/releases/latest) 下载 `BeiyeMD.Setup.1.0.0.exe`。社区构建暂未进行代码签名，Windows SmartScreen 可能要求二次确认；发布说明中提供 SHA-256 校验值供核对。
+| 系统 | 适用设备 | 下载文件 |
+| --- | --- | --- |
+| Windows x64 | 常见的 64 位 Windows 电脑 | `BeiyeMD-Setup-1.1.0-Windows-x64.exe` |
+| macOS arm64 | M1、M2、M3、M4 等 Apple 芯片 Mac | `BeiyeMD-1.1.0-mac-arm64.dmg` |
+| macOS x64 | Intel 芯片 Mac | `BeiyeMD-1.1.0-mac-x64.dmg` |
+
+请从 [GitHub Releases](https://github.com/chenzhiyong1994/BeiyeMD/releases/latest) 下载，并使用同页的 `SHA256SUMS.txt` 核对文件。Windows 社区构建暂未进行商业代码签名，SmartScreen 可能要求二次确认；macOS 构建采用临时签名，**未经 Apple 公证**，首次打开时系统可能拦截。确认文件来自本项目官方 GitHub 且校验值一致后，可按 [macOS 安装与安全提示](docs/macos-installation.md) 操作。
 
 ## 从源码启动
 
-需要 Node.js 20 或更高版本。
+需要 Node.js 22.12 或更高版本。
 
 ```bash
 git clone https://github.com/chenzhiyong1994/BeiyeMD.git

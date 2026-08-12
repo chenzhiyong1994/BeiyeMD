@@ -1,5 +1,5 @@
 import { existsSync } from 'node:fs'
-import { basename, dirname, extname, join, resolve } from 'node:path'
+import { basename, dirname, extname, join } from 'node:path'
 import { BrowserWindow, dialog, shell } from 'electron'
 
 import type {
@@ -13,6 +13,7 @@ import type {
 } from '../../shared/contracts'
 import { channels } from '../../shared/contracts'
 import { normalizeMarkdownFileName } from '../application/document-names'
+import { canonicalDocumentPath } from '../application/document-paths'
 import { DocumentSession, type SessionDocument } from '../application/document-session'
 import { AssetFiles, imageMimeType } from '../infrastructure/asset-files'
 import { DocumentWatch } from '../infrastructure/document-watch'
@@ -42,11 +43,6 @@ export interface WindowWorkspaceOptions {
   createDocumentId: () => string
 }
 
-function canonicalPath(value: string): string {
-  const normalized = resolve(value)
-  return process.platform === 'linux' ? normalized : normalized.toLocaleLowerCase('en-US')
-}
-
 export class WindowWorkspace {
   readonly window: BrowserWindow
   readonly session: DocumentSession
@@ -65,7 +61,7 @@ export class WindowWorkspace {
     this.session = new DocumentSession({
       createId: options.createDocumentId,
       untitledName: () => this.copy().untitled,
-      canonicalizePath: canonicalPath
+      canonicalizePath: canonicalDocumentPath
     })
   }
 
@@ -78,8 +74,8 @@ export class WindowWorkspace {
   }
 
   hasPath(path: string): boolean {
-    const target = canonicalPath(path)
-    return this.session.documents.some((document) => document.path && canonicalPath(document.path) === target)
+    const target = canonicalDocumentPath(path)
+    return this.session.documents.some((document) => document.path && canonicalDocumentPath(document.path) === target)
   }
 
   loadInitialContent(content: string): void {
@@ -182,7 +178,7 @@ export class WindowWorkspace {
     const previousPath = document.path
     const nextPath = join(dirname(previousPath), name)
     if (previousPath === nextPath) return true
-    if (canonicalPath(previousPath) !== canonicalPath(nextPath) && await this.files.exists(nextPath)) return false
+    if (canonicalDocumentPath(previousPath) !== canonicalDocumentPath(nextPath) && await this.files.exists(nextPath)) return false
 
     this.watcher.stop(document.id)
     try {
@@ -209,10 +205,10 @@ export class WindowWorkspace {
 
   async paletteData(): Promise<CommandPalettePayload> {
     const openDocuments = this.session.documents.map(({ id, name, path, dirty, readOnly, content }) => ({ id, name, path, dirty, readOnly, content }))
-    const openPaths = new Set(openDocuments.flatMap((document) => document.path ? [canonicalPath(document.path)] : []))
+    const openPaths = new Set(openDocuments.flatMap((document) => document.path ? [canonicalDocumentPath(document.path)] : []))
     const recentDocuments: CommandPalettePayload['recentDocuments'] = []
     for (const path of this.settings.recentDocumentPaths) {
-      if (!openPaths.has(canonicalPath(path)) && await this.files.exists(path)) {
+      if (!openPaths.has(canonicalDocumentPath(path)) && await this.files.exists(path)) {
         recentDocuments.push({ name: basename(path), path })
       }
     }

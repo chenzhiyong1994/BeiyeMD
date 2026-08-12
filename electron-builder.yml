@@ -34,23 +34,26 @@ fileAssociations:
     mimeType: text/markdown
 
 mac:
+  artifactName: BeiyeMD-${version}-mac-${arch}.${ext}
   target:
     - dmg
-    - zip
   category: public.app-category.productivity
   icon: resources/icon.icns
+  identity: "-"
   hardenedRuntime: true
   gatekeeperAssess: false
   entitlements: resources/macos-entitlements.plist
   entitlementsInherit: resources/macos-entitlements.plist
-  notarize: true
+  notarize: false
 
 win:
+  artifactName: BeiyeMD-Setup-${version}-Windows-${arch}.${ext}
   target:
     - nsis
   icon: resources/icon.ico
 
 linux:
+  artifactName: BeiyeMD-${version}-Linux-${arch}.${ext}
   target:
     - AppImage
     - deb

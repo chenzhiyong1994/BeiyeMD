@@ -52,7 +52,7 @@ export class WorkspaceController {
 
   constructor(root: HTMLElement, api: ElectronAPI) {
     this.api = api
-    this.view = new WorkspaceView(root)
+    this.view = new WorkspaceView(root, api.platform)
   }
 
   async start(): Promise<void> {

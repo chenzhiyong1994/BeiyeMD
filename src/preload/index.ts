@@ -1,6 +1,6 @@
 import { contextBridge, ipcRenderer, webUtils } from 'electron'
 
-import { channels, type DocumentPayload, type DocumentSnapshot, type DocumentsPayload, type ElectronAPI, type ImageAssetInput, type Language } from '../shared/contracts'
+import { channels, type DesktopPlatform, type DocumentPayload, type DocumentSnapshot, type DocumentsPayload, type ElectronAPI, type ImageAssetInput, type Language } from '../shared/contracts'
 
 export type {
   CommandPalettePayload,
@@ -8,6 +8,7 @@ export type {
   DocumentSnapshot,
   DocumentsPayload,
   DocumentSummary,
+  DesktopPlatform,
   ElectronAPI,
   ImageAssetInput,
   ImageAssetResult,
@@ -25,6 +26,7 @@ function onCommand(channel: string, callback: () => void): void {
 }
 
 const api: ElectronAPI = {
+  platform: process.platform as DesktopPlatform,
   getLanguage: () => ipcRenderer.invoke(channels.getLanguage),
   getDocuments: () => ipcRenderer.invoke(channels.getDocuments),
   getActiveDocument: () => ipcRenderer.invoke(channels.getActiveDocument),

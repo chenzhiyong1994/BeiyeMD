@@ -1,4 +1,5 @@
 export type Language = 'zh-CN' | 'en' | 'zh-TW'
+export type DesktopPlatform = 'win32' | 'darwin' | 'linux'
 
 export interface DocumentSummary {
   id: string
@@ -59,6 +60,7 @@ export interface ImageAssetResult {
 }
 
 export interface ElectronAPI {
+  platform: DesktopPlatform
   getLanguage: () => Promise<Language>
   getDocuments: () => Promise<DocumentsPayload | null>
   getActiveDocument: () => Promise<DocumentPayload | null>

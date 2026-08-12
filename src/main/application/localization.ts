@@ -8,6 +8,7 @@ export interface ApplicationCopy extends WorkspaceCopy {
   view: string
   theme: string
   language: string
+  window: string
   help: string
   newWindow: string
   openWindow: string
@@ -47,7 +48,7 @@ export interface ApplicationCopy extends WorkspaceCopy {
 
 export const copy: Record<Language, ApplicationCopy> = {
   'zh-CN': {
-    app: '北页', file: '文件', edit: '编辑', view: '视图', theme: '主题', language: '语言', help: '帮助',
+    app: '北页', file: '文件', edit: '编辑', view: '视图', theme: '主题', language: '语言', window: '窗口', help: '帮助',
     newWindow: '新建窗口', openWindow: '在新窗口打开…', quickOpen: '快速打开…', closeDocument: '关闭当前文档',
     save: '保存', saveAs: '另存为…', exportPdf: '导出 PDF…', close: '关闭窗口', quit: '退出', hide: '隐藏北页', hideOthers: '隐藏其他应用', unhide: '全部显示',
     undo: '撤销', redo: '重做', cut: '剪切', copy: '复制', paste: '粘贴', selectAll: '全选', find: '查找', insertFormula: '插入公式',
@@ -58,7 +59,7 @@ export const copy: Record<Language, ApplicationCopy> = {
     saveAndClose: '保存并关闭', discard: '放弃修改', cancel: '取消'
   },
   en: {
-    app: 'BeiyeMD', file: 'File', edit: 'Edit', view: 'View', theme: 'Theme', language: 'Language', help: 'Help',
+    app: 'BeiyeMD', file: 'File', edit: 'Edit', view: 'View', theme: 'Theme', language: 'Language', window: 'Window', help: 'Help',
     newWindow: 'New Window', openWindow: 'Open in New Window…', quickOpen: 'Quick Open…', closeDocument: 'Close Current Document',
     save: 'Save', saveAs: 'Save As…', exportPdf: 'Export PDF…', close: 'Close Window', quit: 'Quit', hide: 'Hide BeiyeMD', hideOthers: 'Hide Others', unhide: 'Show All',
     undo: 'Undo', redo: 'Redo', cut: 'Cut', copy: 'Copy', paste: 'Paste', selectAll: 'Select All', find: 'Find', insertFormula: 'Insert Formula',
@@ -69,7 +70,7 @@ export const copy: Record<Language, ApplicationCopy> = {
     saveAndClose: 'Save & Close', discard: 'Discard Changes', cancel: 'Cancel'
   },
   'zh-TW': {
-    app: '北頁', file: '檔案', edit: '編輯', view: '檢視', theme: '主題', language: '語言', help: '說明',
+    app: '北頁', file: '檔案', edit: '編輯', view: '檢視', theme: '主題', language: '語言', window: '視窗', help: '說明',
     newWindow: '新增視窗', openWindow: '在新視窗開啟…', quickOpen: '快速開啟…', closeDocument: '關閉目前文件',
     save: '儲存', saveAs: '另存新檔…', exportPdf: '匯出 PDF…', close: '關閉視窗', quit: '結束', hide: '隱藏北頁', hideOthers: '隱藏其他應用程式', unhide: '全部顯示',
     undo: '復原', redo: '重做', cut: '剪下', copy: '複製', paste: '貼上', selectAll: '全選', find: '尋找', insertFormula: '插入公式',

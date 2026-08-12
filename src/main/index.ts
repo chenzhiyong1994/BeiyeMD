@@ -151,6 +151,15 @@ function openSystemPath(path: string): void {
     existing.window.focus()
     return
   }
+  const target = focusedWorkspace() ?? [...workspaces.values()][0]
+  if (target) {
+    void target.openPaths([path]).then((opened) => {
+      if (!opened) return
+      target.window.show()
+      target.window.focus()
+    })
+    return
+  }
   createWindow({ paths: [path] }).focus()
 }
 
@@ -214,7 +223,7 @@ function buildMenu(): void {
         { type: 'separator' },
         { label: t.exportPdf, click: () => sendFocused(channels.menuExportPDF) },
         { type: 'separator' },
-        isMac ? { label: t.close, role: 'close' } : { label: t.quit, role: 'quit' }
+        isMac ? { label: t.close, accelerator: 'Cmd+Shift+W', role: 'close' } : { label: t.quit, role: 'quit' }
       ]
     },
     {
@@ -248,6 +257,7 @@ function buildMenu(): void {
         { label: '繁體中文', type: 'radio', checked: settings.language === 'zh-TW', click: () => void setLanguage('zh-TW') }
       ]
     },
+    ...(isMac ? [{ label: t.window, role: 'windowMenu' as const }] : []),
     {
       label: t.help,
       submenu: [

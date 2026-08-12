@@ -176,6 +176,18 @@ body.theme-graphite {
   padding: 10px 10px 8px 12px;
 }
 
+body.platform-darwin .library-topline,
+body.platform-darwin .document-bar {
+  -webkit-app-region: drag;
+}
+
+body.platform-darwin .library-topline { padding-left: 80px; }
+body.platform-darwin:not(.show-file-panel) .document-bar { padding-left: 84px; }
+body.platform-darwin button,
+body.platform-darwin input,
+body.platform-darwin textarea,
+body.platform-darwin [role="button"] { -webkit-app-region: no-drag; }
+
 .library-tabs {
   display: flex;
   align-items: center;
