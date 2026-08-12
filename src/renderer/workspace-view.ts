@@ -1,4 +1,4 @@
-import type { DocumentSummary, Language } from '../shared/contracts'
+import type { DesktopPlatform, DocumentSummary, Language } from '../shared/contracts'
 import { copyFor } from './workspace-copy'
 import { countMarkdownWords, filterDocuments, isCompactSidebarWidth, presentDocumentState } from './workspace-model'
 
@@ -71,7 +71,8 @@ export class WorkspaceView {
   private language: Language = 'zh-CN'
   private compact = false
 
-  constructor(root: HTMLElement) {
+  constructor(root: HTMLElement, platform: DesktopPlatform = window.electronAPI.platform) {
+    const primaryModifier = platform === 'darwin' ? '⌘' : 'Ctrl'
     root.innerHTML = `
       <div id="app-shell" class="beiye-workspace">
         <aside id="file-panel" class="document-library" aria-label="">
@@ -94,10 +95,10 @@ export class WorkspaceView {
             <button id="shortcuts-toggle" class="shortcuts-trigger" type="button" aria-expanded="false">${icons.shortcuts}<span id="shortcuts-toggle-label"></span><span class="shortcuts-chevron">›</span></button>
             <div id="shortcuts-panel" class="shortcuts-popover" role="dialog" hidden>
               <div class="shortcuts-heading"><strong id="shortcuts-heading-label"></strong><button id="shortcuts-close" type="button">×</button></div>
-              <button class="shortcut-action" type="button" data-shortcut-action="quick-open"><span id="shortcut-quick-open-label"></span><kbd>Ctrl P</kbd></button>
-              <button class="shortcut-action" type="button" data-shortcut-action="search"><span id="shortcut-search-label"></span><kbd>Ctrl F</kbd></button>
-              <button class="shortcut-action" type="button" data-shortcut-action="save"><span id="shortcut-save-label"></span><kbd>Ctrl S</kbd></button>
-              <button class="shortcut-action" type="button" data-shortcut-action="formula"><span id="shortcut-formula-label"></span><kbd>Ctrl ⇧ E</kbd></button>
+              <button class="shortcut-action" type="button" data-shortcut-action="quick-open"><span id="shortcut-quick-open-label"></span><kbd>${primaryModifier} P</kbd></button>
+              <button class="shortcut-action" type="button" data-shortcut-action="search"><span id="shortcut-search-label"></span><kbd>${primaryModifier} F</kbd></button>
+              <button class="shortcut-action" type="button" data-shortcut-action="save"><span id="shortcut-save-label"></span><kbd>${primaryModifier} S</kbd></button>
+              <button class="shortcut-action" type="button" data-shortcut-action="formula"><span id="shortcut-formula-label"></span><kbd>${primaryModifier} ⇧ E</kbd></button>
             </div>
           </footer>
         </aside>

@@ -10,77 +10,177 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22.12.0
+          cache: npm
+
+      - run: npm ci
+      - run: npm test
+      - run: npm run check:workspace-ui
+      - run: npm run legal:notices
+      - run: npx tsc -p tsconfig.main.json --noEmit
+      - run: npx tsc -p tsconfig.preload.json --noEmit
+      - run: npx tsc -p tsconfig.renderer.json --noEmit
+      - run: npm run build
+
+  build-macos:
+    needs: validate
     strategy:
       fail-fast: false
       matrix:
         include:
-          - os: macos-latest
-            platform: mac
-          - os: windows-latest
-            platform: win
-          - os: ubuntu-latest
-            platform: linux
+          - runner: macos-15
+            architecture: arm64
+            executable_architecture: arm64
+          - runner: macos-15-intel
+            architecture: x64
+            executable_architecture: x86_64
 
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.runner }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
-          node-version: 20
+          node-version: 22.12.0
+          cache: npm
 
       - run: npm ci
-
+      - run: npm run legal:notices
       - run: npm run build
 
-      - name: Build distributables
+      - name: Validate macOS entitlements
+        run: plutil -lint resources/macos-entitlements.plist
+
+      - name: Build ad-hoc signed macOS DMG
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+        run: npx electron-builder --mac dmg --${{ matrix.architecture }} --publish never
+
+      - name: Verify app bundle, architecture, signature, associations, and notices
         shell: bash
         run: |
-          if [[ "$RUNNER_OS" == "macOS" && -z "$CSC_LINK" ]]; then
-            unset CSC_LINK CSC_KEY_PASSWORD APPLE_ID APPLE_APP_SPECIFIC_PASSWORD APPLE_TEAM_ID
-            export CSC_IDENTITY_AUTO_DISCOVERY=false
-            npx electron-builder --mac --publish never --config.mac.notarize=false
-          else
-            npx electron-builder --${{ matrix.platform }} --publish never
-          fi
-        env:
-          CSC_LINK: ${{ secrets.CSC_LINK }}
-          CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
-          APPLE_ID: ${{ secrets.APPLE_ID }}
-          APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
-          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          set -euo pipefail
+          app_path="$(find release -type d -name 'BeiyeMD.app' -print -quit)"
+          test -n "$app_path"
 
-      - uses: actions/upload-artifact@v4
+          codesign --verify --deep --strict --verbose=2 "$app_path"
+          signature_details="$(codesign -dvvv "$app_path" 2>&1)"
+          printf '%s\n' "$signature_details"
+          grep -q 'Signature=adhoc' <<< "$signature_details"
+
+          executable_architectures="$(lipo -archs "$app_path/Contents/MacOS/BeiyeMD")"
+          test "$executable_architectures" = "${{ matrix.executable_architecture }}"
+
+          info_plist="$app_path/Contents/Info.plist"
+          plutil -extract CFBundleDocumentTypes xml1 -o - "$info_plist" | grep -q '<string>md</string>'
+          plutil -extract CFBundleDocumentTypes xml1 -o - "$info_plist" | grep -q '<string>markdown</string>'
+          test -f "$app_path/Contents/Resources/THIRD_PARTY_NOTICES.txt"
+          test -f "$app_path/Contents/Resources/ELECTRON_THIRD_PARTY_NOTICES.html"
+
+      - name: Smoke-launch the app bundle
+        shell: bash
+        run: |
+          set -euo pipefail
+          app_path="$(find release -type d -name 'BeiyeMD.app' -print -quit)"
+          "$app_path/Contents/MacOS/BeiyeMD" --disable-gpu > macos-smoke.log 2>&1 &
+          app_pid=$!
+          sleep 8
+          kill -0 "$app_pid"
+          kill "$app_pid" || true
+          wait "$app_pid" || true
+
+      - name: Mount and verify the DMG
+        shell: bash
+        run: |
+          set -euo pipefail
+          dmg_path="$(find release -maxdepth 1 -name 'BeiyeMD-*-mac-${{ matrix.architecture }}.dmg' -print -quit)"
+          test -n "$dmg_path"
+          mount_dir="$(mktemp -d)"
+          cleanup() {
+            hdiutil detach "$mount_dir" -quiet || true
+            rmdir "$mount_dir" || true
+          }
+          trap cleanup EXIT
+          hdiutil attach "$dmg_path" -nobrowse -readonly -mountpoint "$mount_dir"
+          test -d "$mount_dir/BeiyeMD.app"
+          codesign --verify --deep --strict --verbose=2 "$mount_dir/BeiyeMD.app"
+
+      - uses: actions/upload-artifact@v7
         with:
-          name: dist-${{ matrix.platform }}
-          path: |
-            release/*.dmg
-            release/*.zip
-            release/*.exe
-            release/*.AppImage
-            release/*.deb
-            release/latest*.yml
-            release/*.blockmap
+          name: dist-macos-${{ matrix.architecture }}
+          path: release/BeiyeMD-*-mac-${{ matrix.architecture }}.dmg
+          if-no-files-found: error
+          retention-days: 7
+
+  build-windows:
+    needs: validate
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22.12.0
+          cache: npm
+
+      - run: npm ci
+      - run: npm run legal:notices
+      - run: npm run build
+      - run: npx electron-builder --win nsis --x64 --publish never
+
+      - name: Verify Windows installer
+        shell: pwsh
+        run: |
+          $installer = Get-ChildItem release -Filter 'BeiyeMD-Setup-*-Windows-x64.exe' | Select-Object -First 1
+          if (-not $installer) { throw 'Windows installer was not generated.' }
+          if ($installer.Length -lt 10MB) { throw 'Windows installer is unexpectedly small.' }
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: dist-windows-x64
+          path: release/BeiyeMD-Setup-*-Windows-x64.exe
           if-no-files-found: error
           retention-days: 7
 
   release:
-    needs: build
+    needs:
+      - build-macos
+      - build-windows
     if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     permissions:
       contents: write
 
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/checkout@v7
+
+      - uses: actions/download-artifact@v8
         with:
           path: artifacts
           merge-multiple: true
 
+      - name: Generate SHA-256 checksums
+        shell: bash
+        working-directory: artifacts
+        run: |
+          set -euo pipefail
+          files=( *.dmg *.exe )
+          sha256sum "${files[@]}" > SHA256SUMS.txt
+          cat SHA256SUMS.txt
+
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
-          files: artifacts/*
-          generate_release_notes: true
+          body_path: docs/releases/v1.1.0.md
+          files: |
+            artifacts/*.dmg
+            artifacts/*.exe
+            artifacts/SHA256SUMS.txt

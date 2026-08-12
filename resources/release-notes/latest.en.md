@@ -1,8 +1,15 @@
 # Recent Updates
 
-## v1.0.0 · A Lighter, Faster Way to Open Markdown
+## v1.1.0 · Windows and macOS
 
-BeiyeMD 1.0 is the first stable release for everyday use, helping you read and edit Markdown with less waiting and less clutter. It opens the local documents you choose without an account or cloud service.
+BeiyeMD now supports both Windows and macOS while staying focused on a lighter, faster way to read and edit local Markdown files. Separate Mac builds support Apple silicon and Intel processors without requiring an account or cloud service.
+
+### New macOS support
+
+- Download separate DMG packages for Apple silicon arm64 and Intel x64 Macs.
+- Open Markdown files from Finder and collect consecutive opens in one workspace.
+- Use Command-based shortcuts on Mac, with workspace spacing designed around the traffic-light window controls.
+- Save, rename, image, PDF export, and live external-file refresh workflows remain consistent across platforms.
 
 ### Multi-document workspace
 
@@ -29,6 +36,6 @@ BeiyeMD 1.0 is the first stable release for everyday use, helping you read and e
 
 1. Select several Markdown files at once and switch between them in the same window.
 2. Drag the sidebar edge and a table column boundary to see persistent widths.
-3. Press `Ctrl+F` for Find and Replace, then switch to Source to verify line numbers.
+3. Press `Ctrl+F` (`Command+F` on Mac) for Find and Replace, then switch to Source to verify line numbers.
 4. Try inline and display formulas from **Edit → Insert Formula**.
 5. Compare all five palettes from the **Theme** menu.

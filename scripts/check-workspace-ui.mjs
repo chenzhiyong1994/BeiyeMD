@@ -32,6 +32,8 @@ const containsAll = (text, values) => values.every((value) => text.includes(valu
 expect(source.html.includes('<div id="app"></div>'), '渲染器 HTML 应只保留工作区挂载点')
 expect(!source.html.includes('file-panel') && !source.html.includes('brand'), '静态 HTML 仍混入旧界面结构或品牌块')
 expect(source.entry.includes('new WorkspaceController') && source.entry.split('\n').length < 20, '渲染器入口未收敛为独立控制器装配')
+expect(source.entry.includes('platform-${window.electronAPI.platform}') && source.contracts.includes('platform: DesktopPlatform'), '渲染器缺少桌面平台标识')
+expect(source.view.includes("platform === 'darwin' ? '⌘' : 'Ctrl'") && source.controller.includes('new WorkspaceView(root, api.platform)'), '快捷键提示没有适配 macOS Command 键')
 
 for (const id of ['documents-tab', 'outline-tab', 'new-document-btn', 'open-document-btn', 'file-list', 'sidebar-resize-handle', 'sidebar-edge-toggle', 'current-document-name', 'quality-check-btn', 'preview-mode-btn', 'markdown-mode-btn', 'source-line-numbers']) {
   expect(source.view.includes(`id="${id}"`), `新工作区视图缺少 ${id}`)
@@ -44,10 +46,13 @@ expect(containsAll(source.controller, ['getActiveDocument()', 'setMode(\'markdow
 expect(!source.controller.includes('applyingUntil'), '编辑器仍用时间窗吞掉用户输入')
 expect(source.contracts.includes("getActiveDocument: 'workspace:get-active-document'"), '启动时缺少当前正文 IPC')
 expect(source.main.includes('channels.getActiveDocument'), '主进程没有提供当前正文 IPC')
+expect(source.main.includes('focusedWorkspace() ?? [...workspaces.values()][0]') && source.main.includes('target.openPaths([path])'), 'Finder 连续打开文件时没有复用同一工作区')
+expect(source.main.includes("accelerator: 'Cmd+Shift+W', role: 'close'") && source.main.includes("role: 'windowMenu'"), 'macOS 的文档关闭与窗口关闭快捷键冲突，或缺少标准窗口菜单')
 
 expect(containsAll(source.model, ['countMarkdownWords', 'filterDocuments', 'normalizeSidebarWidth', 'presentDocumentState']), '工作区纯逻辑模型不完整')
 expect(containsAll(source.controller, ['ResizeObserver', 'pointerdown', 'beiyemd-sidebar-width']), '侧栏拖拽、紧凑态或宽度持久化缺失')
 expect(source.css.includes('top: 50%') && source.css.includes('.document-library:hover ~ .sidebar-edge-toggle'), '侧栏边缘吸附按钮没有在整条边缘悬停时出现')
+expect(containsAll(source.css, ['body.platform-darwin .library-topline', '-webkit-app-region: drag', 'padding-left: 80px', 'body.platform-darwin:not(.show-file-panel) .document-bar']), 'macOS 窗口按钮避让或标题栏拖拽区域缺失')
 
 for (const theme of ['theme-light', 'theme-dark', 'theme-mist', 'theme-sage', 'theme-graphite']) {
   expect(source.css.includes(`body.${theme}`), `缺少 ${theme} 主题令牌`)

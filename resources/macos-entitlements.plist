@@ -2,7 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "https://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-  <!-- Electron 的 V8 运行时在 hardened runtime 下需要动态代码权限。 -->
   <key>com.apple.security.cs.allow-jit</key>
   <true />
   <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
