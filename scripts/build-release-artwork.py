@@ -106,10 +106,15 @@ def main() -> None:
     draw.rounded_rectangle((74, 1665, 1006, 1844), 34, fill=INK)
     draw.text((110, 1704), "现在开源，欢迎来用。", font=font(34, True), fill=PAPER)
     draw.text((110, 1760), "github.com/chenzhiyong1994/BeiyeMD", font=font(22), fill="#D7D7D2")
-    draw.rounded_rectangle((782, 1710, 958, 1798), 44, fill=CORAL)
-    draw.text((825, 1728), "给颗 Star", font=font(26, True), fill=PAPER)
+    star_button = (782, 1710, 958, 1798)
+    draw.rounded_rectangle(star_button, 44, fill=CORAL)
+    star_label = "给颗 Star"
+    star_font = font(26, True)
+    star_bounds = draw.textbbox((0, 0), star_label, font=star_font)
+    star_x = (star_button[0] + star_button[2] - (star_bounds[2] - star_bounds[0])) / 2 - star_bounds[0]
+    star_y = (star_button[1] + star_button[3] - (star_bounds[3] - star_bounds[1])) / 2 - star_bounds[1]
+    draw.text((star_x, star_y), star_label, font=star_font, fill=PAPER)
     draw.text((78, 1872), "BEIYEMD 1.0 · WINDOWS", font=font(16, True), fill=MUTED)
-    draw.text((762, 1872), "文件留在本地", font=font(16, True), fill=MUTED)
 
     canvas.convert("RGB").save(OUTPUT, quality=95, optimize=True, subsampling=0)
     print(OUTPUT)
