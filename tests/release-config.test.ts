@@ -41,6 +41,7 @@ test('macOS 权限文件可由 Apple plist 工具安全解析', () => {
   const entitlements = read('resources/macos-entitlements.plist')
 
   assert.doesNotMatch(entitlements, /<!--/u)
+  assert.doesNotMatch(entitlements, /<true\s+\/>/u)
   assert.match(entitlements, /com\.apple\.security\.cs\.allow-jit/u)
 })
 
