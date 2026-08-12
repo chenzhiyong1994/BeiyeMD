@@ -1,0 +1,63 @@
+appId: com.beiyemd.app
+productName: BeiyeMD
+
+directories:
+  output: release
+  buildResources: resources
+
+files:
+  - dist/**/*
+
+extraResources:
+  - from: resources/guides
+    to: guides
+  - from: resources/release-notes
+    to: release-notes
+  - from: LICENSE
+    to: LICENSE.txt
+  - from: THIRD_PARTY_NOTICES.txt
+    to: THIRD_PARTY_NOTICES.txt
+  - from: ELECTRON_THIRD_PARTY_NOTICES.html
+    to: ELECTRON_THIRD_PARTY_NOTICES.html
+
+npmArgs:
+  - "--loglevel=error"
+
+fileAssociations:
+  - ext: md
+    name: BeiyeMD Markdown Document
+    role: Editor
+    mimeType: text/markdown
+  - ext: markdown
+    name: BeiyeMD Markdown Document
+    role: Editor
+    mimeType: text/markdown
+
+mac:
+  target:
+    - dmg
+    - zip
+  category: public.app-category.productivity
+  icon: resources/icon.icns
+  hardenedRuntime: true
+  gatekeeperAssess: false
+  entitlements: resources/macos-entitlements.plist
+  entitlementsInherit: resources/macos-entitlements.plist
+  notarize: true
+
+win:
+  target:
+    - nsis
+  icon: resources/icon.ico
+
+linux:
+  target:
+    - AppImage
+    - deb
+  category: Office
+  icon: resources/icon.png
+  maintainer: BeiyeMD contributors <chenzhiyong1994@users.noreply.github.com>
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true

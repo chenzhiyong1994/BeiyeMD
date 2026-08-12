@@ -1,0 +1,13 @@
+node_modules/
+dist/
+release/
+release-next/
+release-final/
+release-v1/
+release-v1b/
+ELECTRON_THIRD_PARTY_NOTICES.html
+*.log
+.DS_Store
+.claude/
+*.env
+log.md
