@@ -108,7 +108,7 @@ def main() -> None:
     draw.text((110, 1760), "github.com/chenzhiyong1994/BeiyeMD", font=font(22), fill="#D7D7D2")
     star_button = (782, 1710, 958, 1798)
     draw.rounded_rectangle(star_button, 44, fill=CORAL)
-    star_label = "给颗 Star"
+    star_label = "免费下载"
     star_font = font(26, True)
     star_bounds = draw.textbbox((0, 0), star_label, font=star_font)
     star_x = (star_button[0] + star_button[2] - (star_bounds[2] - star_bounds[0])) / 2 - star_bounds[0]
