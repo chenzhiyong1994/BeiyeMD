@@ -5,6 +5,8 @@ release-next/
 release-final/
 release-v1/
 release-v1b/
+release-brand/
+release-brand-final/
 ELECTRON_THIRD_PARTY_NOTICES.html
 *.log
 .DS_Store
