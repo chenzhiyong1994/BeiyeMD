@@ -1,8 +1,8 @@
 <div align="center">
   <img src="resources/icon.png" width="104" alt="BeiyeMD logo">
   <h1>BeiyeMD · 北页</h1>
-  <p><strong>Write locally. See the structure. Keep the source honest.</strong></p>
-  <p>A calm, local-first Markdown workspace for people who work across more than one document.</p>
+  <p><strong>A lighter, faster way to open Markdown.</strong></p>
+  <p>A quick-launching local Markdown reader and editor that stays focused on the file.</p>
   <p><strong>English</strong> · <a href="README_CN.md">简体中文</a></p>
   <p>
     <img src="https://img.shields.io/badge/license-MIT-111111" alt="MIT license">
@@ -23,13 +23,13 @@
   <a href="#run-from-source">Run from source</a>
 </p>
 
-BeiyeMD keeps Preview, raw Markdown, and multi-document navigation in one window. It works directly with ordinary files, so your notes remain portable and external tools—including AI coding agents—can participate without an import, export, or proprietary database.
+BeiyeMD helps you read and edit Markdown with less waiting and less clutter. Open local documents quickly, review the formatted page, check the original text, and manage multiple files in one focused window—no import step or proprietary document library required.
 
 ## Version 1.0.0
 
 This is the first stable BeiyeMD release for everyday writing. The multi-document workspace, Preview and Source modes, Markdown checks, resizable tables, and portable image workflow now form one coherent experience. The Windows installer, SHA-256 checksum, and full notes are available from [GitHub Releases](https://github.com/chenzhiyong1994/BeiyeMD/releases/tag/v1.0.0).
 
-- **Start with a file** — no account, migration, or proprietary library.
+- **Open, read, and make a quick edit** — no account, migration, or proprietary library.
 - **Review layout and syntax** — Preview reveals the reading experience; Source adds fixed line numbers and search highlighting.
 - **Stay in one workspace** — batch open, switch, search across documents, and receive live external updates.
 

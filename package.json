@@ -1,7 +1,7 @@
 {
   "name": "beiyemd",
   "version": "1.0.0",
-  "description": "A local-first, multi-document Markdown editor with Preview and Source workflows",
+  "description": "A lightweight local Markdown reader and editor for quick viewing and easy changes",
   "author": "BeiyeMD contributors",
   "main": "dist/main/index.js",
   "license": "MIT",

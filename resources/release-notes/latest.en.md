@@ -1,8 +1,8 @@
 # Recent Updates
 
-## v1.0.0 · Write Every Page at Your Own Pace
+## v1.0.0 · A Lighter, Faster Way to Open Markdown
 
-BeiyeMD 1.0 is the first stable release for everyday writing. It reads and writes only the local files you choose, with no account or cloud service required; document management, layout review, source inspection, and quality checks now form one coherent workflow.
+BeiyeMD 1.0 is the first stable release for everyday use, helping you read and edit Markdown with less waiting and less clutter. It opens the local documents you choose without an account or cloud service.
 
 ### Multi-document workspace
 

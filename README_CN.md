@@ -1,8 +1,8 @@
 <div align="center">
   <img src="resources/icon.png" width="104" alt="北页 LOGO">
   <h1>北页 · BeiyeMD</h1>
-  <p><strong>文件留在本地，看清排版，也看清源码。</strong></p>
-  <p>为多文档写作而设计的安静、轻量、本地优先 Markdown 工作台。</p>
+  <p><strong>一个更轻快的 Markdown 打开方式。</strong></p>
+  <p>快速启动、专注轻巧的本地 Markdown 阅读与编辑器。</p>
   <p><strong>简体中文</strong> · <a href="README.md">English</a></p>
   <p>
     <img src="https://img.shields.io/badge/许可证-MIT-111111" alt="MIT 许可证">
@@ -23,13 +23,13 @@
   <a href="#从源码启动">从源码运行</a>
 </p>
 
-北页把预览排版、完整 Markdown 源码和多文档管理放进同一个窗口。它直接读写普通文件，不要求导入、不建立私有文档库；其他编辑器和 AI 工具对文件的修改，也能自然回到你的写作流程里。
+北页帮助你更轻快地查阅和编辑 Markdown 文件。快速打开本地文档，在一个专注轻巧的窗口里阅读排版、核对原文、管理多份文件；不要求导入，也不建立私有文档库。
 
 ## 1.0.0 正式版
 
 这是北页第一个面向日常使用的稳定版本：从多文档工作区、预览与源码双模式，到 Markdown 检查、表格列宽和图片尺寸调整，核心写作流程已经连成一体。Windows 安装包、SHA-256 校验值与完整更新说明均发布在 [GitHub Releases](https://github.com/chenzhiyong1994/BeiyeMD/releases/tag/v1.0.0)。
 
-- **打开就能写**：不注册账号，不迁移文档，选择本地 Markdown 文件即可开始。
+- **打开就能看，随手就能改**：不注册账号，不迁移文档，选择本地 Markdown 文件即可开始。
 - **排版和源码不割裂**：预览模式看结构，源码模式用固定行号与查找高亮定位语法。
 - **为多文档而生**：批量打开、快速切换、跨文档搜索和实时外部刷新都在一个窗口完成。
 

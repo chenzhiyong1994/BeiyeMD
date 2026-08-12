@@ -82,11 +82,11 @@ def main() -> None:
     draw.text((789, 92), "OPEN SOURCE · v1.0", font=font(18, True), fill=PAPER)
 
     # Headline.
-    draw.text((76, 220), "把每一页，", font=font(78, True), fill=INK)
-    draw.text((76, 320), "写成自己的节奏。", font=font(78, True), fill=INK)
+    draw.text((76, 220), "一个更轻快的", font=font(76, True), fill=INK)
+    draw.text((76, 320), "Markdown 打开方式。", font=font(69, True), fill=INK)
     draw.rectangle((80, 436, 162, 444), fill=CORAL)
-    draw.text((80, 475), "本地优先的多文档 Markdown 编辑器", font=font(31, True), fill=INK)
-    draw.text((80, 528), "不必登录，不必导入。打开本地文件，就可以开始。", font=font(22), fill=MUTED)
+    draw.text((80, 475), "快速启动 · 专注轻巧 · 本地文件", font=font(31, True), fill=INK)
+    draw.text((80, 528), "打开就能查阅，随手就能编辑。", font=font(22), fill=MUTED)
 
     # Product frame.
     screenshot = clean_workspace_screenshot(SCREENSHOT)
