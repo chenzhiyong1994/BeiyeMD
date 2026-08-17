@@ -3,7 +3,7 @@
   <h1>北页 · BeiyeMD</h1>
   <p><strong>一个更轻快的 Markdown 打开方式。</strong></p>
   <p>快速启动、专注轻巧的本地 Markdown 阅读与编辑器。</p>
-  <p><strong>简体中文</strong> · <a href="README.md">English</a></p>
+  <p><strong>简体中文</strong> · <a href="README.md">English</a> · <a href="https://chenzhiyong1994.github.io/BeiyeMD/?lang=zh">项目主页</a></p>
   <p>
     <img src="https://img.shields.io/badge/许可证-MIT-111111" alt="MIT 许可证">
     <img src="https://img.shields.io/badge/Electron-34-47848F" alt="Electron 34">

@@ -3,7 +3,7 @@
   <h1>BeiyeMD · 北页</h1>
   <p><strong>A lighter, faster way to open Markdown.</strong></p>
   <p>A quick-launching local Markdown reader and editor that stays focused on the file.</p>
-  <p><strong>English</strong> · <a href="README_CN.md">简体中文</a></p>
+  <p><strong>English</strong> · <a href="README_CN.md">简体中文</a> · <a href="https://chenzhiyong1994.github.io/BeiyeMD/">Project website</a></p>
   <p>
     <img src="https://img.shields.io/badge/license-MIT-111111" alt="MIT license">
     <img src="https://img.shields.io/badge/Electron-34-47848F" alt="Electron 34">

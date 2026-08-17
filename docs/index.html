@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en" data-language="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BeiyeMD is a lightweight, local-first Markdown reader and editor for Windows and macOS.">
+    <meta name="theme-color" content="#f3f0e8">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="BeiyeMD · A lighter way to open Markdown">
+    <meta property="og:description" content="A local-first Markdown workspace for reading, editing, and managing multiple files.">
+    <meta property="og:image" content="https://chenzhiyong1994.github.io/BeiyeMD/screenshots/beiyemd-workspace.png">
+    <meta property="og:url" content="https://chenzhiyong1994.github.io/BeiyeMD/">
+    <title>BeiyeMD · A lighter way to open Markdown</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="home.css">
+    <script src="home.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main" data-copy="en">Skip to content</a>
+    <a class="skip-link" href="#main" data-copy="zh">跳至正文</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="BeiyeMD home">
+        <img src="favicon.svg" width="38" height="38" alt="">
+        <span>BeiyeMD</span>
+        <span class="brand-cn">北页</span>
+      </a>
+
+      <nav class="primary-nav" aria-label="Primary navigation">
+        <a href="#features">
+          <span data-copy="en">Features</span>
+          <span data-copy="zh">功能</span>
+        </a>
+        <a href="#principles">
+          <span data-copy="en">Principles</span>
+          <span data-copy="zh">原则</span>
+        </a>
+        <a href="#download">
+          <span data-copy="en">Download</span>
+          <span data-copy="zh">下载</span>
+        </a>
+      </nav>
+
+      <div class="language-switcher" role="group" aria-label="Language">
+        <button type="button" data-language-option="en" aria-pressed="true">EN</button>
+        <span aria-hidden="true">/</span>
+        <button type="button" data-language-option="zh" aria-pressed="false">中文</button>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top">
+        <div class="hero-copy">
+          <p class="eyebrow" data-copy="en">LOCAL FILES · NATIVE DESKTOP · ZERO ACCOUNTS</p>
+          <p class="eyebrow" data-copy="zh">本地文件 · 原生桌面 · 无需账号</p>
+
+          <h1 data-copy="en">Markdown,<br><em>without the machinery.</em></h1>
+          <h1 data-copy="zh">打开 Markdown，<br><em>不必大动干戈。</em></h1>
+
+          <p class="hero-lead" data-copy="en">
+            Open a file and begin. BeiyeMD keeps Preview, complete Markdown source,
+            and every document in one calm local workspace.
+          </p>
+          <p class="hero-lead" data-copy="zh">
+            打开文件，即刻开始。北页把排版预览、完整源码和多份文档，
+            放进一个安静、轻巧的本地工作区。
+          </p>
+
+          <div class="hero-actions">
+            <a class="button button-primary" href="https://github.com/chenzhiyong1994/BeiyeMD/releases/latest">
+              <span data-copy="en">Download v1.1.1</span>
+              <span data-copy="zh">下载 v1.1.1</span>
+              <span aria-hidden="true">↘</span>
+            </a>
+            <a class="button button-secondary" href="https://github.com/chenzhiyong1994/BeiyeMD">
+              <span data-copy="en">View source</span>
+              <span data-copy="zh">查看源码</span>
+              <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+
+          <ul class="platform-list" aria-label="Supported platforms">
+            <li>Windows x64</li>
+            <li>macOS arm64</li>
+            <li>macOS x64</li>
+          </ul>
+        </div>
+
+        <aside class="hero-note" aria-label="Product promise">
+          <span class="note-index">01</span>
+          <div class="note-mark" aria-hidden="true">*</div>
+          <p data-copy="en">Your filesystem<br>is the source of truth.</p>
+          <p data-copy="zh">你的本地文件系统，<br>就是唯一事实来源。</p>
+          <span class="note-caption" data-copy="en">No import. No cloud lock-in.</span>
+          <span class="note-caption" data-copy="zh">无需导入，没有云端锁定。</span>
+        </aside>
+      </section>
+
+      <section class="product-stage" aria-labelledby="workspace-heading">
+        <div class="section-kicker">
+          <span>02</span>
+          <span data-copy="en">THE WORKSPACE</span>
+          <span data-copy="zh">工作区</span>
+        </div>
+        <div class="stage-heading">
+          <h2 id="workspace-heading">
+            <span data-copy="en">Read the page.<br>Keep the source close.</span>
+            <span data-copy="zh">看清排版，<br>也随时看见源码。</span>
+          </h2>
+          <p data-copy="en">Preview is the default—not a dead end. Switch to full Markdown while keeping your cursor and reading position.</p>
+          <p data-copy="zh">预览是默认入口，而不是单行道。切换完整 Markdown 源码时，光标与阅读位置都会保留。</p>
+        </div>
+        <figure class="workspace-frame">
+          <div class="window-bar" aria-hidden="true">
+            <span></span><span></span><span></span>
+            <b>BeiyeMD</b>
+          </div>
+          <img
+            src="screenshots/beiyemd-workspace.png"
+            width="1920"
+            height="1032"
+            alt="BeiyeMD multi-document Markdown workspace"
+            loading="eager"
+            decoding="async"
+          >
+          <figcaption>
+            <span data-copy="en">One window. Many documents. Nothing leaves your machine.</span>
+            <span data-copy="zh">一个窗口，多份文档，内容始终留在你的电脑。</span>
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="feature-section" id="features" aria-labelledby="features-heading">
+        <div class="section-kicker section-kicker-light">
+          <span>03</span>
+          <span data-copy="en">WHAT STAYS OUT OF THE WAY</span>
+          <span data-copy="zh">刚刚好的功能</span>
+        </div>
+        <div class="feature-intro">
+          <h2 id="features-heading">
+            <span data-copy="en">Serious editing.<br><em>A quiet interface.</em></span>
+            <span data-copy="zh">认真编辑，<br><em>界面保持安静。</em></span>
+          </h2>
+          <p data-copy="en">The tools appear when the document needs them, then recede so the writing can stay in front.</p>
+          <p data-copy="zh">工具在文档需要时出现，其余时间退到一旁，让内容始终站在最前面。</p>
+        </div>
+
+        <div class="feature-grid">
+          <article>
+            <span class="feature-number">01</span>
+            <h3 data-copy="en">Many files,<br>one workspace</h3>
+            <h3 data-copy="zh">多份文件，<br>一个工作区</h3>
+            <p data-copy="en">Batch open, filter, rename, search, and switch without multiplying windows.</p>
+            <p data-copy="zh">批量打开、筛选、改名、搜索和切换，不再堆满窗口。</p>
+          </article>
+          <article>
+            <span class="feature-number">02</span>
+            <h3 data-copy="en">Preview and source<br>in step</h3>
+            <h3 data-copy="zh">预览与源码，<br>位置同步</h3>
+            <p data-copy="en">Move between formatted writing and complete Markdown without losing your place.</p>
+            <p data-copy="zh">在排版写作与完整 Markdown 之间切换，不会丢失当前位置。</p>
+          </article>
+          <article>
+            <span class="feature-number">03</span>
+            <h3 data-copy="en">Checks that<br>teach</h3>
+            <h3 data-copy="zh">检查问题，<br>也解释问题</h3>
+            <p data-copy="en">Catch heading jumps, uneven tables, open fences, trailing spaces, and missing images.</p>
+            <p data-copy="zh">发现标题跳级、表格错列、代码块未闭合、尾随空格和图片缺失。</p>
+          </article>
+          <article>
+            <span class="feature-number">04</span>
+            <h3 data-copy="en">Works beside<br>your other tools</h3>
+            <h3 data-copy="zh">自然配合，<br>其他工具</h3>
+            <p data-copy="en">External file changes refresh live while unsaved local drafts stay protected.</p>
+            <p data-copy="zh">外部修改实时刷新，同时保护尚未保存的本地草稿。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="principles" id="principles" aria-labelledby="principles-heading">
+        <div class="section-kicker">
+          <span>04</span>
+          <span data-copy="en">BUILT ON THREE REFUSALS</span>
+          <span data-copy="zh">三件坚持不做的事</span>
+        </div>
+        <h2 id="principles-heading">
+          <span data-copy="en">Local-first is not<br>a settings toggle.</span>
+          <span data-copy="zh">本地优先，<br>不是一个设置开关。</span>
+        </h2>
+
+        <ol class="principle-list">
+          <li>
+            <span>01</span>
+            <div>
+              <h3 data-copy="en">No account</h3>
+              <h3 data-copy="zh">不需要账号</h3>
+              <p data-copy="en">The app opens before a login screen ever could.</p>
+              <p data-copy="zh">没有登录页挡在文档前面。</p>
+            </div>
+          </li>
+          <li>
+            <span>02</span>
+            <div>
+              <h3 data-copy="en">No hidden library</h3>
+              <h3 data-copy="zh">不建立隐藏文档库</h3>
+              <p data-copy="en">Your folders remain the structure. Markdown remains the format.</p>
+              <p data-copy="zh">文件夹仍是结构，Markdown 仍是格式。</p>
+            </div>
+          </li>
+          <li>
+            <span>03</span>
+            <div>
+              <h3 data-copy="en">No cloud dependency</h3>
+              <h3 data-copy="zh">不依赖云端</h3>
+              <p data-copy="en">Read and edit without a connection, subscription, or synchronization service.</p>
+              <p data-copy="zh">无需联网、订阅或同步服务，也能完整阅读和编辑。</p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <section class="download-section" id="download">
+        <div class="download-seal" aria-hidden="true">北</div>
+        <p class="eyebrow" data-copy="en">FREE · OPEN SOURCE · MIT LICENSE</p>
+        <p class="eyebrow" data-copy="zh">免费 · 开源 · MIT LICENSE</p>
+        <h2 data-copy="en">Open the file.<br><em>Stay with the thought.</em></h2>
+        <h2 data-copy="zh">打开文件，<br><em>继续你的思路。</em></h2>
+        <p data-copy="en">Download BeiyeMD for Windows or macOS. Every release includes SHA-256 checksums.</p>
+        <p data-copy="zh">下载 Windows 或 macOS 版北页。每个版本均提供 SHA-256 校验文件。</p>
+        <a class="button button-primary button-large" href="https://github.com/chenzhiyong1994/BeiyeMD/releases/latest">
+          <span data-copy="en">Choose your download</span>
+          <span data-copy="zh">选择适合你的版本</span>
+          <span aria-hidden="true">↘</span>
+        </a>
+      </section>
+    </main>
+
+    <footer>
+      <div class="brand footer-brand">
+        <img src="favicon.svg" width="32" height="32" alt="">
+        <span>BeiyeMD · 北页</span>
+      </div>
+      <p data-copy="en">A lighter way to open Markdown.</p>
+      <p data-copy="zh">一个更轻快的 Markdown 打开方式。</p>
+      <div class="footer-links">
+        <a href="https://github.com/chenzhiyong1994/BeiyeMD">GitHub</a>
+        <a href="https://github.com/chenzhiyong1994/BeiyeMD/releases/latest">Releases</a>
+        <a href="https://github.com/chenzhiyong1994/BeiyeMD/blob/main/LICENSE">MIT</a>
+      </div>
+    </footer>
+  </body>
+</html>

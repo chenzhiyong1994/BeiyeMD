@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">BeiyeMD app icon</title>
+  <desc id="desc">Two asymmetric black pages form the character Bei in negative space, finished with a small coral seal.</desc>
+  <rect x="8" y="8" width="496" height="496" rx="108" fill="#FFFFFF"/>
+  <path fill="#000000" d="M129 154C120 151 112 160 112 173v238c0 20 10 32 27 30 33-2 63-6 77-16 12-9 18-21 18-36v-52c0-19-10-28-25-32-10-3-22-4-36-4v-5c14 0 26-1 36-4 15-4 25-13 25-31v-64c0-10-5-17-15-20l-90-23Z"/>
+  <path fill="#000000" d="M383 72c9-3 16 3 16 16v336c0 12-7 17-20 17-33 0-63-4-78-9-29-8-44-21-44-43v-52c0-19 10-28 25-32 10-3 22-4 35-4v-5c-13 0-25-1-35-4-15-4-25-13-25-31V127c0-10 5-17 15-21l111-34Z"/>
+  <rect x="343" y="382" width="32" height="32" rx="6" fill="#D85F42"/>
+</svg>
