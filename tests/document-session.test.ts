@@ -54,6 +54,19 @@ test('一次打开多个文件并按路径去重，重复打开只激活已有�
   assert.equal(session.activeDocument?.content, '# Alpha')
 })
 
+test('首次载入文件时编辑器仅规范化换行与末尾空行不会产生未保存状态', () => {
+  const session = createSession()
+
+  session.openFiles([{ path: 'C:\\Docs\\Alpha.md', content: '# Alpha\r\n\r\n正文\r\n' }])
+  const document = session.activeDocument!
+
+  assert.equal(session.updateDraft(document.id, '# Alpha\n\n正文'), true)
+  assert.equal(document.dirty, false)
+
+  session.updateDraft(document.id, '# Alpha\n\n正文\n\n实际修改')
+  assert.equal(document.dirty, true)
+})
+
 test('切换文档前写入草稿，切回后内容仍然存在', () => {
   const session = createSession()
   session.openFiles([

@@ -62,3 +62,18 @@ test('双平台下载与未认证安装说明属于 v1.1.0 发布材料', () => 
   assert.match(installation, /Privacy & Security/u)
   assert.match(installation, /Open Anyway/u)
 })
+
+test('Windows 安装器注册并在卸载时清理 Markdown 右键新建能力', () => {
+  const builder = read('electron-builder.yml')
+  const installer = read('build/installer.nsh')
+
+  assert.match(builder, /include:\s*build\/installer\.nsh/u)
+  assert.match(installer, /!macro\s+customInstall/u)
+  assert.match(installer, /!macro\s+customUnInstall/u)
+  for (const extension of ['.md', '.markdown']) {
+    assert.ok(installer.includes(`Software\\Classes\\${extension}\\ShellNew`))
+  }
+  assert.match(installer, /WriteRegStr\s+SHELL_CONTEXT/u)
+  assert.match(installer, /DeleteRegValue\s+SHELL_CONTEXT/u)
+  assert.match(installer, /SHChangeNotify/u)
+})
