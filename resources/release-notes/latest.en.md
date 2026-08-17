@@ -1,5 +1,12 @@
 # Recent Updates
 
+## v1.1.1 · Editing refinements
+
+- Freshly opened Markdown documents are no longer marked unsaved when the editor normalizes line endings.
+- Switching between Preview and Source preserves cursor and reading progress instead of jumping to the end.
+- Source view now has a clear, continuously visible vertical scrollbar.
+- After installation on Windows, create a BeiyeMD Markdown document directly from Explorer's **New** menu.
+
 ## v1.1.0 · Windows and macOS
 
 BeiyeMD now supports both Windows and macOS while staying focused on a lighter, faster way to read and edit local Markdown files. Separate Mac builds support Apple silicon and Intel processors without requiring an account or cloud service.

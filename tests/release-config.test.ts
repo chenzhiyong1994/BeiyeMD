@@ -6,12 +6,12 @@ import test from 'node:test'
 const root = resolve(import.meta.dirname, '..')
 const read = (path: string): string => readFileSync(resolve(root, path), 'utf8')
 
-test('v1.1.0 发布配置显式生成两种 macOS 架构', () => {
+test('v1.1.1 发布配置显式生成两种 macOS 架构', () => {
   const packageJson = JSON.parse(read('package.json')) as { version: string; engines: { node: string } }
   const builder = read('electron-builder.yml')
   const workflow = read('.github/workflows/release.yml')
 
-  assert.equal(packageJson.version, '1.1.0')
+  assert.equal(packageJson.version, '1.1.1')
   assert.match(packageJson.engines.node, /22/u)
   assert.match(builder, /artifactName:.*\$\{arch\}/u)
   assert.match(builder, /identity:\s*["']-["']/u)
@@ -20,6 +20,7 @@ test('v1.1.0 发布配置显式生成两种 macOS 架构', () => {
   assert.match(workflow, /architecture:\s*arm64/u)
   assert.match(workflow, /architecture:\s*x64/u)
   assert.match(workflow, /electron-builder --mac dmg --\$\{\{ matrix\.architecture \}\}/u)
+  assert.match(workflow, /body_path:\s*docs\/releases\/\$\{\{ github\.ref_name \}\}\.md/u)
 })
 
 test('macOS CI 验证临时签名、架构、文件关联、DMG 和随附声明', () => {
@@ -45,10 +46,10 @@ test('macOS 权限文件可由 Apple plist 工具安全解析', () => {
   assert.match(entitlements, /com\.apple\.security\.cs\.allow-jit/u)
 })
 
-test('双平台下载与未认证安装说明属于 v1.1.0 发布材料', () => {
+test('双平台下载与未认证安装说明属于 v1.1.1 发布材料', () => {
   const chineseReadme = read('README_CN.md')
   const englishReadme = read('README.md')
-  const releaseNotes = read('docs/releases/v1.1.0.md')
+  const releaseNotes = read('docs/releases/v1.1.1.md')
   const installation = read('docs/macos-installation.md')
 
   for (const text of [chineseReadme, englishReadme, releaseNotes]) {
