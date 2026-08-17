@@ -147,7 +147,7 @@ export class WindowWorkspace {
 
   updateDraft(snapshot: DocumentSnapshot): boolean {
     if (!this.isSnapshot(snapshot)) return false
-    const updated = this.session.updateDraft(snapshot.id, snapshot.content)
+    const updated = this.session.updateDraft(snapshot.id, snapshot.content, snapshot.dirty)
     if (updated) this.publish({ active: false })
     return updated
   }
@@ -326,11 +326,11 @@ export class WindowWorkspace {
   }
 
   private applySnapshot(snapshot?: DocumentSnapshot): void {
-    if (this.isSnapshot(snapshot)) this.session.updateDraft(snapshot.id, snapshot.content)
+    if (this.isSnapshot(snapshot)) this.session.updateDraft(snapshot.id, snapshot.content, snapshot.dirty)
   }
 
   private isSnapshot(snapshot: DocumentSnapshot | undefined): snapshot is DocumentSnapshot {
-    return Boolean(snapshot && typeof snapshot.id === 'string' && typeof snapshot.content === 'string')
+    return Boolean(snapshot && typeof snapshot.id === 'string' && typeof snapshot.content === 'string' && typeof snapshot.dirty === 'boolean')
   }
 
   private async saveToChosenOrExistingPath(documentId: string, content: string, forceDialog: boolean): Promise<boolean> {

@@ -584,6 +584,9 @@ body:not(.show-file-panel) .sidebar-resize-zone { display: none; }
   padding: 42px clamp(34px, 5vw, 84px) 120px 22px;
   overflow-x: hidden;
   overflow-y: auto;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
   color: var(--text);
   caret-color: var(--text);
   background: transparent;
@@ -596,7 +599,10 @@ body:not(.show-file-panel) .sidebar-resize-zone { display: none; }
   word-break: break-word;
   font: 14px/1.78 "Cascadia Code", "SFMono-Regular", Consolas, monospace;
 }
-#source-editor::-webkit-scrollbar { width: 0; height: 0; }
+#source-editor::-webkit-scrollbar { width: 10px; height: 10px; }
+#source-editor::-webkit-scrollbar-track { background: transparent; }
+#source-editor::-webkit-scrollbar-thumb { background: var(--line-strong); border: 3px solid transparent; border-radius: 999px; background-clip: padding-box; }
+#source-editor::-webkit-scrollbar-thumb:hover { background: var(--muted); background-clip: padding-box; }
 #source-line-numbers {
   grid-column: 1;
   grid-row: 1;

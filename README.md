@@ -48,7 +48,7 @@ BeiyeMD is now available for both Windows and macOS. Separate macOS packages sup
 
 - Multi-select Open, drag-and-drop, recent documents, `Ctrl/Cmd + P` Quick Open, and cross-document content search.
 - Resizable document sidebar with compact `Doc / TOC` states, heading outline, filename ellipsis, and close controls only when they are useful.
-- Preview-first editing plus complete Markdown source, soft wrapping, fixed line numbers, visible word count, and in-place file rename.
+- Preview-first editing plus complete Markdown source, preserved cursor/reading progress between modes, soft wrapping, fixed line numbers, and a visible source scrollbar.
 - Find and Replace with visible hit highlighting, active-result navigation, case, whole-word, regular-expression, replace-one, and replace-all controls.
 - Markdown quality checks for heading jumps, duplicate headings, unclosed fences, uneven tables, trailing whitespace, unmatched emphasis, and missing local images.
 - Persistent drag-to-resize table columns, plus row/column movement, alignment, equal-width, and content-fit actions.
@@ -57,6 +57,7 @@ BeiyeMD is now available for both Windows and macOS. Separate macOS packages sup
 - Five coordinated themes: Light, Dark, Mist, Sage, and Graphite. Light is true white; Dark is true black.
 - Simplified Chinese by default, with complete English and Traditional Chinese UI translations.
 - Built-in release notes and the Markdown handbook open as read-only references and close without save prompts.
+- After installing on Windows, use **New > BeiyeMD Markdown Document** from a folder's context menu to create a `.md` file directly.
 
 ## Predictable window behavior
 

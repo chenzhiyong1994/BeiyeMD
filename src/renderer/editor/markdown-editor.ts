@@ -170,6 +170,22 @@ export class MarkdownEditor {
     return getActiveEditorView()
   }
 
+  cursorPosition(): number {
+    return this.view()?.state.selection.from ?? 0
+  }
+
+  documentSize(): number {
+    return this.view()?.state.doc.content.size ?? 0
+  }
+
+  restoreCursor(position: number): void {
+    const view = this.view()
+    if (!view) return
+    const offset = Math.min(view.state.doc.content.size, Math.max(0, Math.round(position)))
+    view.dispatch(view.state.tr.setSelection(TextSelection.near(view.state.doc.resolve(offset))))
+    view.focus()
+  }
+
   setLanguage(language: Language): void {
     formulaDialog.setLanguage(language)
   }

@@ -1,3 +1,5 @@
+import { markdownContentsEqual } from '../../shared/markdown-content'
+
 /** A document owned by one application window. */
 export interface SessionDocument {
   readonly id: string
@@ -111,11 +113,12 @@ export class DocumentSession {
     return true
   }
 
-  updateDraft(documentId: string, content: string): boolean {
+  updateDraft(documentId: string, content: string, dirty?: boolean): boolean {
     const document = this.find(documentId)
     if (!document || document.readOnly) return false
-    document.content = content
-    document.dirty = content !== document.savedContent
+    const contentChanged = !markdownContentsEqual(content, document.savedContent)
+    document.dirty = dirty === false ? false : contentChanged
+    document.content = document.dirty ? content : document.savedContent
     return true
   }
 

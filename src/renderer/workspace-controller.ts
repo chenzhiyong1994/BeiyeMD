@@ -7,6 +7,7 @@ import type {
   ImageAssetInput,
   Language
 } from '../shared/contracts'
+import { markdownContentsEqual } from '../shared/markdown-content'
 import { CommandPalette } from './editor/command-palette'
 import { FindReplacePanel } from './editor/find-replace-panel'
 import { ImageToolbar } from './editor/image-toolbar'
@@ -17,6 +18,11 @@ import type { QualityIssue } from './editor/markdown-quality'
 import { OutlinePanel, type OutlineHeading } from './editor/outline-panel'
 import { QualityPanel } from './editor/quality-panel'
 import { TableToolbar } from './editor/table-toolbar'
+import {
+  captureRelativeViewAnchor,
+  restoreRelativeViewAnchor,
+  type RelativeViewAnchor
+} from './editor/view-anchor'
 import { applyTheme, loadSavedTheme } from './themes/theme-manager'
 import { copyFor } from './workspace-copy'
 import { isCompactSidebarWidth, normalizeSidebarWidth } from './workspace-model'
@@ -34,6 +40,7 @@ export class WorkspaceController {
   private documents: DocumentSummary[] = []
   private activeId: string | null = null
   private dirty = false
+  private readonly cleanMarkdown = new Map<string, string>()
   private applyingMarkdown = false
   private pendingDocument: DocumentPayload | null = null
   private sidebarHidden = localStorage.getItem(SIDEBAR_HIDDEN_KEY) === '1'
@@ -120,7 +127,10 @@ export class WorkspaceController {
       this.applyMarkdown(content)
     })
     this.api.onDocumentSaved(({ id }) => {
-      if (id === this.activeId) this.setDirty(false)
+      if (id === this.activeId) {
+        this.cleanMarkdown.set(id, this.currentMarkdown())
+        this.setDirty(false)
+      }
     })
     this.api.onSetLanguage((language) => this.setLanguage(language))
     this.api.onSetTheme((theme) => applyTheme(theme))
@@ -253,6 +263,10 @@ export class WorkspaceController {
 
   private updateDocuments(payload: DocumentsPayload): void {
     this.documents = payload.documents
+    const documentIds = new Set(payload.documents.map((document) => document.id))
+    for (const id of this.cleanMarkdown.keys()) {
+      if (!documentIds.has(id)) this.cleanMarkdown.delete(id)
+    }
     if (payload.activeDocumentId) this.activeId = payload.activeDocumentId
     this.dirty = this.activeDocument()?.dirty ?? this.dirty
     this.renderDocuments()
@@ -266,6 +280,7 @@ export class WorkspaceController {
     }
     this.activeId = payload.id
     this.dirty = payload.dirty
+    if (!payload.dirty) this.cleanMarkdown.set(payload.id, payload.content)
     this.tableTools?.hide()
     this.imageTools?.hide()
     this.applyMarkdown(payload.content, payload.path)
@@ -281,6 +296,10 @@ export class WorkspaceController {
       this.updateLineNumbers()
     } else {
       this.replaceEditorMarkdown(resolveMarkdownImagePaths(markdown, path))
+      if (!this.dirty && this.activeId) {
+        const normalized = makeMarkdownImagePathsPortable(this.editor?.markdown() ?? '', path)
+        this.cleanMarkdown.set(this.activeId, normalized)
+      }
     }
     this.outline?.setContent(markdown)
     this.quality?.schedule()
@@ -291,25 +310,29 @@ export class WorkspaceController {
   private onPreviewChange(markdown: string): void {
     if (this.applyingMarkdown || !this.activeId || this.isReadOnly()) return
     const portable = makeMarkdownImagePathsPortable(markdown, this.activeDocument()?.path)
+    const baseline = this.cleanMarkdown.get(this.activeId)
+    const dirty = baseline === undefined || !markdownContentsEqual(portable, baseline)
     this.view.elements.editor.classList.toggle('is-empty-document', portable.trim().length === 0)
-    this.setDirty(true)
+    this.setDirty(dirty)
     this.updateHeader(portable)
     this.outline?.setContent(portable)
     this.quality?.schedule()
     this.search?.refresh()
-    void this.api.updateDocumentDraft({ id: this.activeId, content: portable, dirty: true })
+    void this.api.updateDocumentDraft({ id: this.activeId, content: portable, dirty })
   }
 
   private onSourceChange(): void {
     if (!this.activeId || this.isReadOnly()) return
     const markdown = this.view.elements.source.value
+    const baseline = this.cleanMarkdown.get(this.activeId)
+    const dirty = baseline === undefined || !markdownContentsEqual(markdown, baseline)
     this.updateLineNumbers()
-    this.setDirty(true)
+    this.setDirty(dirty)
     this.updateHeader(markdown)
     this.outline?.setContent(markdown)
     this.quality?.schedule()
     this.search?.refresh()
-    void this.api.updateDocumentDraft({ id: this.activeId, content: markdown, dirty: true })
+    void this.api.updateDocumentDraft({ id: this.activeId, content: markdown, dirty })
   }
 
   private setDirty(dirty: boolean): void {
@@ -348,24 +371,69 @@ export class WorkspaceController {
   private setMode(mode: EditorMode): void {
     if (mode === this.mode) return
     const element = this.view.elements
+    const anchor = this.captureModeAnchor()
     if (mode === 'markdown') {
       this.tableTools?.hide()
       this.imageTools?.hide()
       element.source.value = makeMarkdownImagePathsPortable(this.editor?.markdown() ?? '', this.activeDocument()?.path)
       this.view.setMode('markdown')
       this.updateLineNumbers()
-      requestAnimationFrame(() => element.source.focus())
     } else {
       this.replaceEditorMarkdown(resolveMarkdownImagePaths(element.source.value, this.activeDocument()?.path))
       this.view.setMode('preview')
-      requestAnimationFrame(() => {
-        this.updatePlaceholder()
-        this.tableTools?.update()
-      })
     }
     this.mode = mode
     this.updateHeader()
     this.search?.refresh()
+    requestAnimationFrame(() => {
+      this.restoreModeAnchor(mode, anchor)
+      this.updatePlaceholder()
+      this.tableTools?.update()
+    })
+  }
+
+  private captureModeAnchor(): RelativeViewAnchor {
+    const { editor, source } = this.view.elements
+    if (this.mode === 'markdown') {
+      return captureRelativeViewAnchor({
+        cursorOffset: source.selectionStart,
+        contentLength: source.value.length,
+        scrollTop: source.scrollTop,
+        scrollHeight: source.scrollHeight,
+        viewportHeight: source.clientHeight
+      })
+    }
+    return captureRelativeViewAnchor({
+      cursorOffset: this.editor?.cursorPosition() ?? 0,
+      contentLength: this.editor?.documentSize() ?? 0,
+      scrollTop: editor.scrollTop,
+      scrollHeight: editor.scrollHeight,
+      viewportHeight: editor.clientHeight
+    })
+  }
+
+  private restoreModeAnchor(mode: EditorMode, anchor: RelativeViewAnchor): void {
+    const { editor, source, sourceLineNumbers, sourceSearchHighlights } = this.view.elements
+    if (mode === 'markdown') {
+      const position = restoreRelativeViewAnchor(anchor, {
+        contentLength: source.value.length,
+        scrollHeight: source.scrollHeight,
+        viewportHeight: source.clientHeight
+      })
+      source.setSelectionRange(position.cursorOffset, position.cursorOffset)
+      source.focus({ preventScroll: true })
+      source.scrollTop = position.scrollTop
+      sourceLineNumbers.scrollTop = position.scrollTop
+      sourceSearchHighlights.style.transform = `translateY(${-position.scrollTop}px)`
+      return
+    }
+    const position = restoreRelativeViewAnchor(anchor, {
+      contentLength: this.editor?.documentSize() ?? 0,
+      scrollHeight: editor.scrollHeight,
+      viewportHeight: editor.clientHeight
+    })
+    this.editor?.restoreCursor(position.cursorOffset)
+    editor.scrollTop = position.scrollTop
   }
 
   private setSidebarView(view: SidebarView): void {
@@ -474,11 +542,17 @@ export class WorkspaceController {
   }
 
   private async save(): Promise<void> {
-    if (!this.isReadOnly() && this.activeId && await this.api.saveFile(this.activeId, this.currentMarkdown())) this.setDirty(false)
+    if (!this.isReadOnly() && this.activeId && await this.api.saveFile(this.activeId, this.currentMarkdown())) {
+      this.cleanMarkdown.set(this.activeId, this.currentMarkdown())
+      this.setDirty(false)
+    }
   }
 
   private async saveAs(): Promise<void> {
-    if (!this.isReadOnly() && this.activeId && await this.api.saveFileAs(this.activeId, this.currentMarkdown())) this.setDirty(false)
+    if (!this.isReadOnly() && this.activeId && await this.api.saveFileAs(this.activeId, this.currentMarkdown())) {
+      this.cleanMarkdown.set(this.activeId, this.currentMarkdown())
+      this.setDirty(false)
+    }
   }
 
   private runShortcut(event: Event): void {
