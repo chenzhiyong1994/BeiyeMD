@@ -6,8 +6,8 @@
 
 | 你的 Mac | 文件 |
 | --- | --- |
-| M1、M2、M3、M4 等 Apple 芯片 | `BeiyeMD-1.1.0-mac-arm64.dmg` |
-| Intel 芯片 | `BeiyeMD-1.1.0-mac-x64.dmg` |
+| M1、M2、M3、M4 等 Apple 芯片 | `BeiyeMD-1.1.1-mac-arm64.dmg` |
+| Intel 芯片 | `BeiyeMD-1.1.1-mac-x64.dmg` |
 
 不确定芯片类型时，点击屏幕左上角的 Apple 菜单，选择“关于本机”，查看“芯片”或“处理器”。只从 [BeiyeMD 官方 GitHub Releases](https://github.com/chenzhiyong1994/BeiyeMD/releases/latest) 下载。
 
@@ -25,8 +25,8 @@
 在 Release 页面同时下载 `SHA256SUMS.txt`，打开“终端”并进入下载目录：
 
 ```bash
-shasum -a 256 BeiyeMD-1.1.0-mac-arm64.dmg
-# Intel 版本则将文件名改为 BeiyeMD-1.1.0-mac-x64.dmg
+shasum -a 256 BeiyeMD-1.1.1-mac-arm64.dmg
+# Intel 版本则将文件名改为 BeiyeMD-1.1.1-mac-x64.dmg
 ```
 
 输出的长串字符应与 `SHA256SUMS.txt` 中同名文件完全一致。
