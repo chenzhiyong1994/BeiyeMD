@@ -1,5 +1,12 @@
 # Recent Updates
 
+## v1.1.2 · Source fidelity and denser reading
+
+- The first switch to Source preserves the original Markdown from disk instead of rewriting it through editor normalization.
+- Blank lines deleted between list items no longer return after switching between Preview and Source.
+- Tighter Source line spacing removes the visual impression of a blank row between every line.
+- Denser spacing for Preview text, lists, headings, and blocks fits more readable content on a laptop screen.
+
 ## v1.1.1 · Editing refinements
 
 - Freshly opened Markdown documents are no longer marked unsaved when the editor normalizes line endings.

@@ -9,7 +9,7 @@
     <img src="https://img.shields.io/badge/Electron-34-47848F" alt="Electron 34">
     <img src="https://img.shields.io/badge/TypeScript-5-3178C6" alt="TypeScript 5">
     <img src="https://img.shields.io/badge/数据-本地优先-D85F42" alt="本地优先">
-    <img src="https://img.shields.io/badge/版本-1.1.1-111111" alt="BeiyeMD 1.1.1">
+    <img src="https://img.shields.io/badge/版本-1.1.2-111111" alt="BeiyeMD 1.1.2">
     <img src="https://img.shields.io/github/v/release/chenzhiyong1994/BeiyeMD?display_name=tag&color=111111" alt="最新版本">
     <img src="https://img.shields.io/github/stars/chenzhiyong1994/BeiyeMD?style=flat&color=111111" alt="GitHub stars">
   </p>
@@ -18,16 +18,16 @@
 ![北页 1.1 多文档工作区](docs/screenshots/beiyemd-workspace.png)
 
 <p align="center">
-  <a href="https://github.com/chenzhiyong1994/BeiyeMD/releases/latest"><strong>下载 BeiyeMD 1.1.1（Windows / macOS）</strong></a>
+  <a href="https://github.com/chenzhiyong1994/BeiyeMD/releases/latest"><strong>下载 BeiyeMD 1.1.2（Windows / macOS）</strong></a>
   ·
   <a href="#从源码启动">从源码运行</a>
 </p>
 
 北页帮助你更轻快地查阅和编辑 Markdown 文件。快速打开本地文档，在一个专注轻巧的窗口里阅读排版、核对原文、管理多份文件；不要求导入，也不建立私有文档库。
 
-## 1.1.1 · 编辑体验优化
+## 1.1.2 · 源码保真与紧凑阅读
 
-本次补丁修复首次打开文档时误报“未保存”的问题，在预览与源码之间保留光标和阅读进度，并为源码区补充可见滚动条。Windows 安装后还可从资源管理器右键“新建”直接创建 Markdown 文件。安装包与统一的 SHA-256 校验文件发布在 [GitHub Releases](https://github.com/chenzhiyong1994/BeiyeMD/releases/tag/v1.1.1)。
+本次补丁让源码模式在预览切换前后保留原始 Markdown，避免编辑器规范化恢复已经删除的列表空行；同时收紧源码行距与预览正文、列表、标题等纵向节奏，让笔记本一屏看到更多内容。安装包与统一的 SHA-256 校验文件发布在 [GitHub Releases](https://github.com/chenzhiyong1994/BeiyeMD/releases/tag/v1.1.2)。
 
 - **打开就能看，随手就能改**：不注册账号，不迁移文档，选择本地 Markdown 文件即可开始。
 - **排版和源码不割裂**：预览模式看结构，源码模式用固定行号与查找高亮定位语法。
@@ -84,9 +84,9 @@
 
 | 系统 | 适用设备 | 下载文件 |
 | --- | --- | --- |
-| Windows x64 | 常见的 64 位 Windows 电脑 | `BeiyeMD-Setup-1.1.1-Windows-x64.exe` |
-| macOS arm64 | M1、M2、M3、M4 等 Apple 芯片 Mac | `BeiyeMD-1.1.1-mac-arm64.dmg` |
-| macOS x64 | Intel 芯片 Mac | `BeiyeMD-1.1.1-mac-x64.dmg` |
+| Windows x64 | 常见的 64 位 Windows 电脑 | `BeiyeMD-Setup-1.1.2-Windows-x64.exe` |
+| macOS arm64 | M1、M2、M3、M4 等 Apple 芯片 Mac | `BeiyeMD-1.1.2-mac-arm64.dmg` |
+| macOS x64 | Intel 芯片 Mac | `BeiyeMD-1.1.2-mac-x64.dmg` |
 
 请从 [GitHub Releases](https://github.com/chenzhiyong1994/BeiyeMD/releases/latest) 下载，并使用同页的 `SHA256SUMS.txt` 核对文件。Windows 社区构建暂未进行商业代码签名，SmartScreen 可能要求二次确认；macOS 构建采用临时签名，**未经 Apple 公证**，首次打开时系统可能拦截。确认文件来自本项目官方 GitHub 且校验值一致后，可按 [macOS 安装与安全提示](docs/macos-installation.md) 操作。
 
