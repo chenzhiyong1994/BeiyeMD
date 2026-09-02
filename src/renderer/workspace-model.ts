@@ -6,6 +6,44 @@ const documentStates = {
   'zh-TW': { saved: '已儲存', dirty: '未儲存', fresh: '新文件' }
 } as const
 
+export class DocumentMarkdownBuffer {
+  private readonly values = new Map<string, string>()
+  private readonly previewEchoes = new Map<string, string>()
+
+  load(documentId: string, markdown: string): void {
+    this.values.set(documentId, markdown)
+  }
+
+  updateFromSource(documentId: string, markdown: string): void {
+    this.values.set(documentId, markdown)
+  }
+
+  expectPreviewEcho(documentId: string, markdown: string): void {
+    this.previewEchoes.set(documentId, markdown)
+  }
+
+  updateFromPreview(documentId: string, markdown: string): boolean {
+    const echo = this.previewEchoes.get(documentId)
+    this.previewEchoes.delete(documentId)
+    if (echo === markdown) return false
+    this.values.set(documentId, markdown)
+    return true
+  }
+
+  forSourceMode(documentId: string | null, serializedFallback: string): string {
+    return documentId ? (this.values.get(documentId) ?? serializedFallback) : serializedFallback
+  }
+
+  retain(documentIds: ReadonlySet<string>): void {
+    for (const documentId of this.values.keys()) {
+      if (!documentIds.has(documentId)) this.values.delete(documentId)
+    }
+    for (const documentId of this.previewEchoes.keys()) {
+      if (!documentIds.has(documentId)) this.previewEchoes.delete(documentId)
+    }
+  }
+}
+
 export function countMarkdownWords(markdown: string): number {
   const visible = markdown
     .replace(/```[\s\S]*?```|~~~[\s\S]*?~~~/gu, ' ')

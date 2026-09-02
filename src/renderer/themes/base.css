@@ -520,12 +520,12 @@ body:not(.show-file-panel) .sidebar-resize-zone { display: none; }
   width: min(1280px, calc(100% - clamp(52px, 8vw, 148px)));
   min-height: 100%;
   margin: 0 auto;
-  padding: clamp(44px, 6vw, 84px) 0 160px;
+  padding: clamp(32px, 4vw, 56px) 0 112px;
   color: var(--text);
   caret-color: var(--text);
   font-family: "Iowan Old Style", "Noto Serif SC", "Source Han Serif SC", Georgia, serif;
-  font-size: 17px;
-  line-height: 1.82;
+  font-size: 16.5px;
+  line-height: 1.65;
   outline: 0;
 }
 #editor.is-empty-document:not(:focus-within) .ProseMirror::before {
@@ -536,34 +536,35 @@ body:not(.show-file-panel) .sidebar-resize-zone { display: none; }
   font-style: italic;
 }
 #editor .ProseMirror ::selection, #source-editor::selection { background: var(--selection); }
-#editor .ProseMirror p { margin: .85em 0; }
+#editor .ProseMirror p { margin: .55em 0; }
 #editor .ProseMirror h1, #editor .ProseMirror h2, #editor .ProseMirror h3, #editor .ProseMirror h4, #editor .ProseMirror h5, #editor .ProseMirror h6 {
   color: var(--text);
   font-family: "Aptos Display", "Segoe UI Variable Display", "Noto Sans SC", sans-serif;
   line-height: 1.22;
   letter-spacing: -.025em;
 }
-#editor .ProseMirror h1 { margin: 0 0 1.05em; padding-bottom: .42em; border-bottom: 1px solid var(--line); font-size: 2.1em; font-weight: 760; }
-#editor .ProseMirror h2 { margin: 1.8em 0 .75em; font-size: 1.52em; font-weight: 740; }
-#editor .ProseMirror h3 { margin: 1.5em 0 .55em; font-size: 1.23em; font-weight: 720; }
-#editor .ProseMirror h4 { margin: 1.35em 0 .45em; font-size: 1.02em; font-weight: 720; }
-#editor .ProseMirror h5, #editor .ProseMirror h6 { margin: 1.2em 0 .4em; color: var(--muted); font-size: .9em; font-weight: 720; letter-spacing: .03em; text-transform: uppercase; }
+#editor .ProseMirror h1 { margin: 0 0 .85em; padding-bottom: .32em; border-bottom: 1px solid var(--line); font-size: 2em; font-weight: 760; }
+#editor .ProseMirror h2 { margin: 1.45em 0 .55em; font-size: 1.52em; font-weight: 740; }
+#editor .ProseMirror h3 { margin: 1.25em 0 .42em; font-size: 1.23em; font-weight: 720; }
+#editor .ProseMirror h4 { margin: 1.1em 0 .35em; font-size: 1.02em; font-weight: 720; }
+#editor .ProseMirror h5, #editor .ProseMirror h6 { margin: 1em 0 .32em; color: var(--muted); font-size: .9em; font-weight: 720; letter-spacing: .03em; text-transform: uppercase; }
 #editor .ProseMirror a { color: var(--accent-ink); text-decoration-color: color-mix(in srgb, var(--accent) 45%, transparent); text-underline-offset: 3px; }
 #editor .ProseMirror mark { color: inherit; background: color-mix(in srgb, #ffd963 62%, transparent); border-radius: 2px; }
-#editor .ProseMirror blockquote { margin: 1.5em 0; padding: .2em 0 .2em 1.05em; color: var(--muted); border-left: 3px solid var(--accent); }
-#editor .ProseMirror hr { height: 1px; margin: 2.4em 0; background: var(--line-strong); border: 0; }
-#editor .ProseMirror ul, #editor .ProseMirror ol { padding-left: 1.6em; }
-#editor .ProseMirror li { margin: .32em 0; padding-left: .15em; }
+#editor .ProseMirror blockquote { margin: 1em 0; padding: .15em 0 .15em 1.05em; color: var(--muted); border-left: 3px solid var(--accent); }
+#editor .ProseMirror hr { height: 1px; margin: 1.75em 0; background: var(--line-strong); border: 0; }
+#editor .ProseMirror ul, #editor .ProseMirror ol { margin: .55em 0; padding-left: 1.6em; }
+#editor .ProseMirror li { margin: .18em 0; padding-left: .15em; }
+#editor .ProseMirror li > p { margin: .24em 0; }
 #editor .ProseMirror code { padding: .16em .36em; color: var(--accent-ink); background: var(--code); border: 1px solid var(--line); border-radius: 5px; font: .88em/1.5 "Cascadia Code", "SFMono-Regular", monospace; }
-#editor .ProseMirror pre { margin: 1.4em 0; padding: 18px 20px; overflow: auto; color: var(--text); background: var(--code); border: 1px solid var(--line); border-radius: 12px; }
+#editor .ProseMirror pre { margin: 1em 0; padding: 14px 16px; overflow: auto; color: var(--text); background: var(--code); border: 1px solid var(--line); border-radius: 12px; }
 #editor .ProseMirror pre code { padding: 0; color: inherit; background: transparent; border: 0; }
-#editor .ProseMirror img { display: block; max-width: 100%; height: auto; margin: 1.7em auto; border-radius: 8px; box-shadow: 0 1px 0 var(--line); }
+#editor .ProseMirror img { display: block; max-width: 100%; height: auto; margin: 1.25em auto; border-radius: 8px; box-shadow: 0 1px 0 var(--line); }
 #editor .ProseMirror img.image-load-error { min-height: 80px; background: repeating-linear-gradient(135deg, var(--surface), var(--surface) 8px, var(--paper) 8px, var(--paper) 16px); border: 1px dashed var(--accent); }
 #editor .ProseMirror .milkdown-html-inline { padding: 2px 5px; color: var(--muted); background: var(--code); border-radius: 4px; font: .85em "Cascadia Code", monospace; }
 
-#editor .ProseMirror .tableWrapper { display: block; width: fit-content; max-width: 100%; margin: 1.5em 0; overflow-x: auto; border: 1px solid var(--line-strong); border-radius: 10px; }
+#editor .ProseMirror .tableWrapper { display: block; width: fit-content; max-width: 100%; margin: 1em 0; overflow-x: auto; border: 1px solid var(--line-strong); border-radius: 10px; }
 #editor .ProseMirror table { width: max-content; max-width: 100%; border: 0; border-collapse: separate; border-spacing: 0; table-layout: fixed; }
-#editor .ProseMirror th, #editor .ProseMirror td { min-width: 72px; padding: 10px 12px; vertical-align: top; border: 0; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+#editor .ProseMirror th, #editor .ProseMirror td { min-width: 72px; padding: 8px 10px; vertical-align: top; border: 0; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 #editor .ProseMirror tr:last-child td { border-bottom: 0; }
 #editor .ProseMirror th:last-child, #editor .ProseMirror td:last-child { border-right: 0; }
 #editor .ProseMirror th { font-family: "Aptos", "Noto Sans SC", sans-serif; font-size: .9em; font-weight: 720; text-align: left; background: var(--surface); }
@@ -597,7 +598,7 @@ body:not(.show-file-panel) .sidebar-resize-zone { display: none; }
   white-space: pre-wrap;
   overflow-wrap: anywhere;
   word-break: break-word;
-  font: 14px/1.78 "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+  font: 14px/1.55 "Cascadia Code", "SFMono-Regular", Consolas, monospace;
 }
 #source-editor::-webkit-scrollbar { width: 10px; height: 10px; }
 #source-editor::-webkit-scrollbar-track { background: transparent; }
@@ -612,7 +613,7 @@ body:not(.show-file-panel) .sidebar-resize-zone { display: none; }
   color: var(--faint);
   background: color-mix(in srgb, var(--surface) 68%, transparent);
   border-right: 1px solid var(--line);
-  font: 11px/1.78 "Cascadia Code", monospace;
+  font: 11px/1.55 "Cascadia Code", monospace;
   text-align: right;
   user-select: none;
 }
@@ -634,7 +635,7 @@ body:not(.show-file-panel) .sidebar-resize-zone { display: none; }
   white-space: pre-wrap;
   overflow-wrap: anywhere;
   word-break: break-word;
-  font: 14px/1.78 "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+  font: 14px/1.55 "Cascadia Code", "SFMono-Regular", Consolas, monospace;
   transform: translateY(0);
   will-change: transform;
 }
@@ -644,7 +645,7 @@ body:not(.show-file-panel) .sidebar-resize-zone { display: none; }
 }
 .source-search-match { background: color-mix(in srgb, #ffd45a 56%, var(--paper)); box-shadow: 0 0 0 1px color-mix(in srgb, #c99400 18%, transparent); }
 .source-search-match-current { background: color-mix(in srgb, var(--accent) 32%, #ffd45a); box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 74%, transparent); }
-#source-line-mirror { position: fixed; left: -99999px; top: 0; visibility: hidden; padding: 42px clamp(34px, 5vw, 84px) 120px 22px; white-space: pre-wrap; overflow-wrap: anywhere; word-break: break-word; font: 14px/1.78 "Cascadia Code", monospace; }
+#source-line-mirror { position: fixed; left: -99999px; top: 0; visibility: hidden; padding: 42px clamp(34px, 5vw, 84px) 120px 22px; white-space: pre-wrap; overflow-wrap: anywhere; word-break: break-word; font: 14px/1.55 "Cascadia Code", monospace; }
 
 .search-match { color: inherit; background: color-mix(in srgb, #ffd45a 56%, var(--paper)); border-radius: 3px; box-shadow: 0 0 0 1px color-mix(in srgb, #c99400 18%, transparent); }
 .search-match-current { color: var(--text); background: color-mix(in srgb, var(--accent) 32%, #ffd45a); border-radius: 3px; box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 74%, transparent); }

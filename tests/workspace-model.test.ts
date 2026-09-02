@@ -3,6 +3,7 @@ import test from 'node:test'
 
 import {
   countMarkdownWords,
+  DocumentMarkdownBuffer,
   filterDocuments,
   isCompactSidebarWidth,
   normalizeSidebarWidth,
@@ -13,6 +14,19 @@ import { copyFor } from '../src/renderer/workspace-copy'
 test('Markdown 字数忽略语法符号，同时统计中日韩字符和拉丁词', () => {
   const markdown = '# 北页编辑器\n\n**Local first** and [Markdown](https://example.com).\n\n```ts\nconst hidden = true\n```'
   assert.equal(countMarkdownWords(markdown), 9)
+})
+
+test('源码模式保留用户删除的宽松列表空行', () => {
+  const buffer = new DocumentMarkdownBuffer()
+  const original = '* 第一项\n\n* 第二项'
+  const edited = '* 第一项\n* 第二项'
+
+  buffer.load('document-1', original)
+  buffer.updateFromSource('document-1', edited)
+  buffer.expectPreviewEcho('document-1', original)
+
+  assert.equal(buffer.updateFromPreview('document-1', original), false)
+  assert.equal(buffer.forSourceMode('document-1', original), edited)
 })
 
 test('文档筛选同时匹配名称和路径，并保持原有顺序', () => {

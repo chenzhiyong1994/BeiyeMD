@@ -25,7 +25,7 @@ import {
 } from './editor/view-anchor'
 import { applyTheme, loadSavedTheme } from './themes/theme-manager'
 import { copyFor } from './workspace-copy'
-import { isCompactSidebarWidth, normalizeSidebarWidth } from './workspace-model'
+import { DocumentMarkdownBuffer, isCompactSidebarWidth, normalizeSidebarWidth } from './workspace-model'
 import { WorkspaceView, type EditorMode, type SidebarView } from './workspace-view'
 
 const SIDEBAR_WIDTH_KEY = 'beiyemd-sidebar-width'
@@ -41,6 +41,7 @@ export class WorkspaceController {
   private activeId: string | null = null
   private dirty = false
   private readonly cleanMarkdown = new Map<string, string>()
+  private readonly markdownBuffer = new DocumentMarkdownBuffer()
   private applyingMarkdown = false
   private pendingDocument: DocumentPayload | null = null
   private sidebarHidden = localStorage.getItem(SIDEBAR_HIDDEN_KEY) === '1'
@@ -123,6 +124,7 @@ export class WorkspaceController {
     this.api.onDocumentsChanged((payload) => this.updateDocuments(payload))
     this.api.onDocumentChanged(({ id, content }) => {
       if (id !== this.activeId) return
+      this.markdownBuffer.load(id, content)
       this.setDirty(false)
       this.applyMarkdown(content)
     })
@@ -241,7 +243,8 @@ export class WorkspaceController {
 
   private currentMarkdown(): string {
     if (this.mode === 'markdown') return this.view.elements.source.value
-    return makeMarkdownImagePathsPortable(this.editor?.markdown() ?? '', this.activeDocument()?.path)
+    const serialized = makeMarkdownImagePathsPortable(this.editor?.markdown() ?? '', this.activeDocument()?.path)
+    return this.markdownBuffer.forSourceMode(this.activeId, serialized)
   }
 
   private isReadOnly(): boolean {
@@ -252,10 +255,14 @@ export class WorkspaceController {
     return this.activeId ? { id: this.activeId, content: this.currentMarkdown(), dirty: this.dirty } : undefined
   }
 
-  private replaceEditorMarkdown(markdown: string): void {
+  private replaceEditorMarkdown(markdown: string, path = this.activeDocument()?.path): void {
     this.applyingMarkdown = true
     try {
       this.editor?.replaceMarkdown(markdown)
+      if (this.activeId) {
+        const serialized = makeMarkdownImagePathsPortable(this.editor?.markdown() ?? '', path)
+        this.markdownBuffer.expectPreviewEcho(this.activeId, serialized)
+      }
     } finally {
       this.applyingMarkdown = false
     }
@@ -267,6 +274,7 @@ export class WorkspaceController {
     for (const id of this.cleanMarkdown.keys()) {
       if (!documentIds.has(id)) this.cleanMarkdown.delete(id)
     }
+    this.markdownBuffer.retain(documentIds)
     if (payload.activeDocumentId) this.activeId = payload.activeDocumentId
     this.dirty = this.activeDocument()?.dirty ?? this.dirty
     this.renderDocuments()
@@ -280,6 +288,7 @@ export class WorkspaceController {
     }
     this.activeId = payload.id
     this.dirty = payload.dirty
+    this.markdownBuffer.load(payload.id, payload.content)
     if (!payload.dirty) this.cleanMarkdown.set(payload.id, payload.content)
     this.tableTools?.hide()
     this.imageTools?.hide()
@@ -295,11 +304,7 @@ export class WorkspaceController {
       this.view.elements.source.value = markdown
       this.updateLineNumbers()
     } else {
-      this.replaceEditorMarkdown(resolveMarkdownImagePaths(markdown, path))
-      if (!this.dirty && this.activeId) {
-        const normalized = makeMarkdownImagePathsPortable(this.editor?.markdown() ?? '', path)
-        this.cleanMarkdown.set(this.activeId, normalized)
-      }
+      this.replaceEditorMarkdown(resolveMarkdownImagePaths(markdown, path), path)
     }
     this.outline?.setContent(markdown)
     this.quality?.schedule()
@@ -310,6 +315,7 @@ export class WorkspaceController {
   private onPreviewChange(markdown: string): void {
     if (this.applyingMarkdown || !this.activeId || this.isReadOnly()) return
     const portable = makeMarkdownImagePathsPortable(markdown, this.activeDocument()?.path)
+    if (!this.markdownBuffer.updateFromPreview(this.activeId, portable)) return
     const baseline = this.cleanMarkdown.get(this.activeId)
     const dirty = baseline === undefined || !markdownContentsEqual(portable, baseline)
     this.view.elements.editor.classList.toggle('is-empty-document', portable.trim().length === 0)
@@ -324,6 +330,7 @@ export class WorkspaceController {
   private onSourceChange(): void {
     if (!this.activeId || this.isReadOnly()) return
     const markdown = this.view.elements.source.value
+    this.markdownBuffer.updateFromSource(this.activeId, markdown)
     const baseline = this.cleanMarkdown.get(this.activeId)
     const dirty = baseline === undefined || !markdownContentsEqual(markdown, baseline)
     this.updateLineNumbers()
@@ -375,11 +382,13 @@ export class WorkspaceController {
     if (mode === 'markdown') {
       this.tableTools?.hide()
       this.imageTools?.hide()
-      element.source.value = makeMarkdownImagePathsPortable(this.editor?.markdown() ?? '', this.activeDocument()?.path)
+      const serialized = makeMarkdownImagePathsPortable(this.editor?.markdown() ?? '', this.activeDocument()?.path)
+      element.source.value = this.markdownBuffer.forSourceMode(this.activeId, serialized)
       this.view.setMode('markdown')
       this.updateLineNumbers()
     } else {
-      this.replaceEditorMarkdown(resolveMarkdownImagePaths(element.source.value, this.activeDocument()?.path))
+      const path = this.activeDocument()?.path
+      this.replaceEditorMarkdown(resolveMarkdownImagePaths(element.source.value, path), path)
       this.view.setMode('preview')
     }
     this.mode = mode
