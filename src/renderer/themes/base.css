@@ -635,6 +635,7 @@ body:not(.show-file-panel) .sidebar-resize-zone { display: none; }
   white-space: pre-wrap;
   overflow-wrap: anywhere;
   word-break: break-word;
+  tab-size: 2;
   font: 14px/1.55 "Cascadia Code", "SFMono-Regular", Consolas, monospace;
   transform: translateY(0);
   will-change: transform;

@@ -605,7 +605,8 @@ export class WorkspaceController {
   private updateLineNumbers(): void {
     window.cancelAnimationFrame(this.lineNumberFrame)
     this.lineNumberFrame = window.requestAnimationFrame(() => {
-      const { source, sourceLineNumbers: numbers, sourceMirror: mirror } = this.view.elements
+      const { source, sourceLineNumbers: numbers, sourceMirror: mirror, sourceSearchHighlights } = this.view.elements
+      sourceSearchHighlights.style.width = `${source.clientWidth}px`
       const style = getComputedStyle(source)
       const horizontalPadding = Number.parseFloat(style.paddingLeft) + Number.parseFloat(style.paddingRight)
       mirror.style.width = `${Math.max(40, source.clientWidth - horizontalPadding)}px`

@@ -30,6 +30,7 @@
     "build": "electron-vite build",
     "test": "tsx --test tests/**/*.test.ts",
     "check:workspace-ui": "node scripts/check-workspace-ui.mjs",
+    "check:find-replace-ui": "node scripts/check-find-replace-ui.mjs",
     "legal:notices": "node scripts/generate-third-party-notices.mjs",
     "preview": "electron-vite preview",
     "dist": "npm run legal:notices && electron-vite build && electron-builder",

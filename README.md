@@ -49,7 +49,7 @@ This patch preserves the original Markdown when switching between Preview and So
 - Multi-select Open, drag-and-drop, recent documents, `Ctrl/Cmd + P` Quick Open, and cross-document content search.
 - Resizable document sidebar with compact `Doc / TOC` states, heading outline, filename ellipsis, and close controls only when they are useful.
 - Preview-first editing plus complete Markdown source, preserved cursor/reading progress between modes, soft wrapping, fixed line numbers, and a visible source scrollbar.
-- Find and Replace with visible hit highlighting, active-result navigation, case, whole-word, regular-expression, replace-one, and replace-all controls.
+- Find and Replace highlights matches and automatically scrolls to the active result in preview and source modes while keeping focus in the search panel. Includes case, whole-word, regular-expression, replace-one, and replace-all controls.
 - Markdown quality checks for heading jumps, duplicate headings, unclosed fences, uneven tables, trailing whitespace, unmatched emphasis, and missing local images.
 - Persistent drag-to-resize table columns, plus row/column movement, alignment, equal-width, and content-fit actions.
 - Pasted and dropped images keep their natural pixel size, save beside the document in `assets/`, use portable relative links, and support drag resizing and left/center/right alignment.
@@ -118,6 +118,7 @@ npx tsc -p tsconfig.main.json --noEmit
 npx tsc -p tsconfig.preload.json --noEmit
 npx tsc -p tsconfig.renderer.json --noEmit
 npm run build
+npm run check:find-replace-ui
 ```
 
 ## Project scope

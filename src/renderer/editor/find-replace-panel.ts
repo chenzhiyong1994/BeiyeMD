@@ -183,6 +183,7 @@ export class FindReplacePanel {
 
   private recalculate(scroll = true): void {
     const engine = this.engine()
+    const previousMatch = scroll ? undefined : this.matches[this.activeMatch]
     this.message.textContent = engine.error ? copy[this.language].invalidExpression : ''
     this.matches = []
     this.activeMatch = -1
@@ -195,10 +196,6 @@ export class FindReplacePanel {
     const source = this.sourceEditor()
     if (source) {
       this.matches = engine.locate(source.value).map((match) => ({ ...match, from: match.start, to: match.end }))
-      this.activeMatch = this.matches.length ? 0 : -1
-      this.clearPreviewHighlights()
-      this.paintSourceHighlights(source)
-      if (scroll) this.selectSourceMatch(source)
     } else {
       const view = getActiveEditorView()
       view?.state.doc.descendants((node, position) => {
@@ -206,7 +203,15 @@ export class FindReplacePanel {
         const matches = engine.locate(node.text)
         this.matches.push(...matches.map((match) => ({ ...match, from: position + match.start, to: position + match.end })))
       })
-      this.activeMatch = this.matches.length ? 0 : -1
+    }
+    this.activeMatch = this.matches.length ? Math.max(0, this.matches.findIndex((match) =>
+      match.from === previousMatch?.from && match.to === previousMatch.to
+    )) : -1
+    if (source) {
+      this.clearPreviewHighlights()
+      this.paintSourceHighlights(source)
+      if (scroll) this.selectSourceMatch(source)
+    } else {
       this.paintPreviewHighlights()
       if (scroll) this.scrollPreviewToActive()
     }
@@ -277,7 +282,11 @@ export class FindReplacePanel {
 
   private paintSourceHighlights(source: HTMLTextAreaElement): void {
     const root = this.sourceSurface?.highlights ?? document.getElementById('source-search-highlights')
-    if (root) renderSourceSearchHighlights(root, source.value, this.matches, this.activeMatch)
+    if (root) {
+      // Match the textarea's text width, excluding its scrollbar gutter.
+      root.style.width = `${source.clientWidth}px`
+      renderSourceSearchHighlights(root, source.value, this.matches, this.activeMatch)
+    }
   }
 
   private clearSourceHighlights(): void {
@@ -306,17 +315,44 @@ export class FindReplacePanel {
     const viewport = document.getElementById('editor')
     if (!view || !match || !viewport) return
     view.dispatch(view.state.tr.setSelection(TextSelection.create(view.state.doc, match.from, match.to)))
-    const point = view.coordsAtPos(match.from)
-    const bounds = viewport.getBoundingClientRect()
-    viewport.scrollTo({ top: viewport.scrollTop + point.top - bounds.top - bounds.height * .32, behavior: 'smooth' })
+    this.scrollToMatch(viewport, view.coordsAtPos(match.from))
   }
 
   private selectSourceMatch(source: HTMLTextAreaElement): void {
     const match = this.matches[this.activeMatch]
     if (!match) return
-    source.focus()
     source.setSelectionRange(match.from, match.to)
-    this.query.focus()
+    const root = this.sourceSurface?.highlights ?? document.getElementById('source-search-highlights')
+    if (!root) return
+    // A previous navigation may have scrolled before its scroll event was delivered.
+    root.style.transform = `translateY(${-source.scrollTop}px)`
+    let point = root.querySelector('.source-search-match-current')?.getClientRects()[0]
+    // Zero-width regular expressions have no highlight element; measure their caret.
+    if (!point) {
+      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT)
+      let node = walker.nextNode()
+      let offset = match.from
+      while (node && offset > (node.textContent?.length ?? 0)) {
+        offset -= node.textContent?.length ?? 0
+        node = walker.nextNode()
+      }
+      if (node) {
+        const range = document.createRange()
+        range.setStart(node, offset)
+        range.collapse(true)
+        point = range.getClientRects()[0]
+      }
+    }
+    if (point) this.scrollToMatch(source, point)
+  }
+
+  private scrollToMatch(viewport: HTMLElement, point: { top: number; bottom: number; left: number; right: number }): void {
+    const bounds = viewport.getBoundingClientRect()
+    const panel = this.panel.getBoundingClientRect()
+    const overlapsPanel = point.left <= panel.right && point.right >= panel.left
+    const visibleTop = overlapsPanel ? Math.max(bounds.top, panel.bottom + 16) : bounds.top
+    const targetTop = visibleTop + Math.max(0, bounds.bottom - visibleTop) * .32
+    viewport.scrollTo({ top: viewport.scrollTop + point.top - targetTop, behavior: 'instant' })
   }
 
   private updateAvailability(): void {
