@@ -1,5 +1,12 @@
 # Recent Updates
 
+## v1.1.3 · Find result navigation
+
+- Navigating search results in Preview and Source scrolls directly to the active match, including in long documents.
+- Focus stays in the search panel for repeated Enter / Shift+Enter navigation and wrapping between the first and last results.
+- Source navigation accounts for soft-wrapped lines, window resizing, and zero-width regular expression matches at the end of a document.
+- Typing replacement text preserves the active result instead of resetting the highlight to the first match.
+
 ## v1.1.2 · Source fidelity and denser reading
 
 - The first switch to Source preserves the original Markdown from disk instead of rewriting it through editor normalization.
