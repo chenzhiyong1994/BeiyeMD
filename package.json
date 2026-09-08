@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/chenzhiyong1994/BeiyeMD/issues"
   },
-  "homepage": "https://github.com/chenzhiyong1994/BeiyeMD#readme",
+  "homepage": "https://chenzhiyong1994.github.io/BeiyeMD/",
   "engines": {
     "node": ">=22.12.0"
   },

@@ -1,16 +1,18 @@
 <!doctype html>
-<html lang="en" data-language="en">
+<html lang="zh-CN" data-language="zh">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="BeiyeMD is a lightweight, local-first Markdown reader and editor for Windows and macOS.">
+    <meta name="description" content="北页是一款轻巧、本地优先的 Windows 与 macOS Markdown 阅读和编辑器。打开本地文件，在预览、完整源码与多份文档之间自由切换。">
     <meta name="theme-color" content="#f3f0e8">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="BeiyeMD · A lighter way to open Markdown">
-    <meta property="og:description" content="A local-first Markdown workspace for reading, editing, and managing multiple files.">
+    <meta property="og:title" content="北页 BeiyeMD · 一个更轻快的 Markdown 打开方式">
+    <meta property="og:description" content="打开本地文件，在预览、完整源码与多份文档之间自由切换。免费、开源，无需账号。">
     <meta property="og:image" content="https://chenzhiyong1994.github.io/BeiyeMD/screenshots/beiyemd-workspace.png">
     <meta property="og:url" content="https://chenzhiyong1994.github.io/BeiyeMD/">
-    <title>BeiyeMD · A lighter way to open Markdown</title>
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://chenzhiyong1994.github.io/BeiyeMD/">
+    <title>北页 BeiyeMD · 一个更轻快的 Markdown 打开方式</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="home.css">
     <script src="home.js" defer></script>
@@ -20,13 +22,13 @@
     <a class="skip-link" href="#main" data-copy="zh">跳至正文</a>
 
     <header class="site-header">
-      <a class="brand" href="#top" aria-label="BeiyeMD home">
+      <a class="brand" href="#top" aria-label="北页主页" data-label-en="BeiyeMD home" data-label-zh="北页主页">
         <img src="favicon.svg" width="38" height="38" alt="">
         <span>BeiyeMD</span>
         <span class="brand-cn">北页</span>
       </a>
 
-      <nav class="primary-nav" aria-label="Primary navigation">
+      <nav class="primary-nav" aria-label="主导航" data-label-en="Primary navigation" data-label-zh="主导航">
         <a href="#features">
           <span data-copy="en">Features</span>
           <span data-copy="zh">功能</span>
@@ -41,21 +43,25 @@
         </a>
       </nav>
 
-      <div class="language-switcher" role="group" aria-label="Language">
-        <button type="button" data-language-option="en" aria-pressed="true">EN</button>
+      <div class="language-switcher" role="group" aria-label="语言" data-label-en="Language" data-label-zh="语言">
+        <button type="button" data-language-option="en" aria-pressed="false" aria-label="English">EN</button>
         <span aria-hidden="true">/</span>
-        <button type="button" data-language-option="zh" aria-pressed="false">中文</button>
+        <button type="button" data-language-option="zh" aria-pressed="true" aria-label="简体中文">中文</button>
       </div>
     </header>
 
     <main id="main">
       <section class="hero" id="top">
         <div class="hero-copy">
-          <p class="eyebrow" data-copy="en">LOCAL FILES · NATIVE DESKTOP · ZERO ACCOUNTS</p>
-          <p class="eyebrow" data-copy="zh">本地文件 · 原生桌面 · 无需账号</p>
+          <a class="release-link" href="https://github.com/chenzhiyong1994/BeiyeMD/releases/tag/v1.1.3">
+            <span class="release-version">v1.1.3</span>
+            <span data-copy="en">Find it. Jump right to it.</span>
+            <span data-copy="zh">查找结果，现在自动定位</span>
+            <span aria-hidden="true">↗</span>
+          </a>
 
-          <h1 data-copy="en">Markdown,<br><em>without the machinery.</em></h1>
-          <h1 data-copy="zh">打开 Markdown，<br><em>不必大动干戈。</em></h1>
+          <h1 data-copy="en">Your words.<br><em>A little more room.</em></h1>
+          <h1 data-copy="zh">打开 Markdown，<br><em>让思路轻装上页。</em></h1>
 
           <p class="hero-lead" data-copy="en">
             Open a file and begin. BeiyeMD keeps Preview, complete Markdown source,
@@ -67,9 +73,9 @@
           </p>
 
           <div class="hero-actions">
-            <a class="button button-primary" href="https://github.com/chenzhiyong1994/BeiyeMD/releases/latest">
-              <span data-copy="en">Download v1.1.3</span>
-              <span data-copy="zh">下载 v1.1.3</span>
+            <a class="button button-primary" href="#download">
+              <span data-copy="en">Download BeiyeMD</span>
+              <span data-copy="zh">免费下载北页</span>
               <span aria-hidden="true">↘</span>
             </a>
             <a class="button button-secondary" href="https://github.com/chenzhiyong1994/BeiyeMD">
@@ -79,18 +85,18 @@
             </a>
           </div>
 
-          <ul class="platform-list" aria-label="Supported platforms">
+          <ul class="platform-list" aria-label="支持的平台" data-label-en="Supported platforms" data-label-zh="支持的平台">
             <li>Windows x64</li>
             <li>macOS arm64</li>
             <li>macOS x64</li>
           </ul>
         </div>
 
-        <aside class="hero-note" aria-label="Product promise">
+        <aside class="hero-note" aria-label="产品理念" data-label-en="Product promise" data-label-zh="产品理念">
           <span class="note-index">01</span>
           <div class="note-mark" aria-hidden="true">*</div>
-          <p data-copy="en">Your filesystem<br>is the source of truth.</p>
-          <p data-copy="zh">你的本地文件系统，<br>就是唯一事实来源。</p>
+          <p data-copy="en">A plain .md file.<br>Entirely yours.</p>
+          <p data-copy="zh">一份 .md 文件，<br>始终属于你。</p>
           <span class="note-caption" data-copy="en">No import. No cloud lock-in.</span>
           <span class="note-caption" data-copy="zh">无需导入，没有云端锁定。</span>
         </aside>
@@ -104,8 +110,8 @@
         </div>
         <div class="stage-heading">
           <h2 id="workspace-heading">
-            <span data-copy="en">Read the page.<br>Keep the source close.</span>
-            <span data-copy="zh">看清排版，<br>也随时看见源码。</span>
+            <span data-copy="en">One workspace.<br>Every side of your writing.</span>
+            <span data-copy="zh">排版与源码，<br>都在顺手的位置。</span>
           </h2>
           <p data-copy="en">Preview is the default—not a dead end. Switch to full Markdown while keeping your cursor and reading position.</p>
           <p data-copy="zh">预览是默认入口，而不是单行道。切换完整 Markdown 源码时，光标与阅读位置都会保留。</p>
@@ -115,14 +121,19 @@
             <span></span><span></span><span></span>
             <b>BeiyeMD</b>
           </div>
-          <img
+          <a class="screenshot-link" href="screenshots/beiyemd-workspace.png" target="_blank" rel="noopener" aria-label="在新标签页查看完整工作区截图" data-label-en="View the full workspace screenshot in a new tab" data-label-zh="在新标签页查看完整工作区截图">
+            <img
             src="screenshots/beiyemd-workspace.png"
             width="1920"
             height="1032"
-            alt="BeiyeMD multi-document Markdown workspace"
+            alt="北页多文档工作区：文档侧栏、标题大纲与 Markdown 预览"
+            data-alt-en="BeiyeMD workspace with a document sidebar, heading outline, and Markdown preview"
+            data-alt-zh="北页多文档工作区：文档侧栏、标题大纲与 Markdown 预览"
             loading="eager"
             decoding="async"
-          >
+            >
+            <span class="screenshot-hint"><span data-copy="en">Explore the full screenshot</span><span data-copy="zh">查看完整截图</span> ↗</span>
+          </a>
           <figcaption>
             <span data-copy="en">One window. Many documents. Nothing leaves your machine.</span>
             <span data-copy="zh">一个窗口，多份文档，内容始终留在你的电脑。</span>
@@ -225,13 +236,35 @@
         <p class="eyebrow" data-copy="zh">免费 · 开源 · MIT LICENSE</p>
         <h2 data-copy="en">Open the file.<br><em>Stay with the thought.</em></h2>
         <h2 data-copy="zh">打开文件，<br><em>继续你的思路。</em></h2>
-        <p data-copy="en">Download BeiyeMD for Windows or macOS. Every release includes SHA-256 checksums.</p>
-        <p data-copy="zh">下载 Windows 或 macOS 版北页。每个版本均提供 SHA-256 校验文件。</p>
-        <a class="button button-primary button-large" href="https://github.com/chenzhiyong1994/BeiyeMD/releases/latest">
-          <span data-copy="en">Choose your download</span>
-          <span data-copy="zh">选择适合你的版本</span>
-          <span aria-hidden="true">↘</span>
-        </a>
+        <p data-copy="en">BeiyeMD v1.1.3. Choose the installer for your computer and make room for your next thought.</p>
+        <p data-copy="zh">BeiyeMD v1.1.3。选好你的版本，给下一段思路留一个轻巧的入口。</p>
+        <div class="download-grid">
+          <a class="download-card" href="https://github.com/chenzhiyong1994/BeiyeMD/releases/download/v1.1.3/BeiyeMD-Setup-1.1.3-Windows-x64.exe">
+            <span class="download-platform">Windows <span aria-hidden="true">↘</span></span>
+            <span data-copy="en">For 64-bit Windows PCs</span>
+            <span data-copy="zh">适用于 64 位 Windows 电脑</span>
+            <span class="download-format">x64 · .exe</span>
+          </a>
+          <a class="download-card" href="https://github.com/chenzhiyong1994/BeiyeMD/releases/download/v1.1.3/BeiyeMD-1.1.3-mac-arm64.dmg">
+            <span class="download-platform">macOS <span aria-hidden="true">↘</span></span>
+            <span data-copy="en">Apple silicon · M-series</span>
+            <span data-copy="zh">Apple 芯片 · M 系列</span>
+            <span class="download-format">arm64 · .dmg</span>
+          </a>
+          <a class="download-card" href="https://github.com/chenzhiyong1994/BeiyeMD/releases/download/v1.1.3/BeiyeMD-1.1.3-mac-x64.dmg">
+            <span class="download-platform">macOS <span aria-hidden="true">↘</span></span>
+            <span data-copy="en">Intel-based Macs</span>
+            <span data-copy="zh">Intel 芯片 Mac</span>
+            <span class="download-format">x64 · .dmg</span>
+          </a>
+        </div>
+        <div class="download-resources">
+          <a href="https://github.com/chenzhiyong1994/BeiyeMD/releases/latest"><span data-copy="en">All releases</span><span data-copy="zh">版本与更新记录</span> ↗</a>
+          <a href="https://github.com/chenzhiyong1994/BeiyeMD/releases/download/v1.1.3/SHA256SUMS.txt"><span data-copy="en">SHA-256 checksums</span><span data-copy="zh">SHA-256 校验文件</span> ↗</a>
+          <a href="https://github.com/chenzhiyong1994/BeiyeMD/blob/main/docs/macos-installation.md"><span data-copy="en">macOS installation guide</span><span data-copy="zh">macOS 安装说明</span> ↗</a>
+        </div>
+        <p class="install-note" data-copy="en">Community builds: Windows is not commercially code-signed; macOS is ad-hoc signed and not notarized. Your system may show a first-launch prompt. Check the installation guide before opening.</p>
+        <p class="install-note" data-copy="zh">社区构建：Windows 暂无商业代码签名，macOS 使用临时签名且未经 Apple 公证。首次打开可能出现系统提示，请先查看安装说明。</p>
       </section>
     </main>
 

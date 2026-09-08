@@ -18,12 +18,20 @@
 ![北页 1.1 多文档工作区](docs/screenshots/beiyemd-workspace.png)
 
 <p align="center">
+  <a href="https://chenzhiyong1994.github.io/BeiyeMD/?lang=zh"><strong>访问项目主页</strong></a>
+  ·
   <a href="https://github.com/chenzhiyong1994/BeiyeMD/releases/latest"><strong>下载 BeiyeMD 1.1.3（Windows / macOS）</strong></a>
   ·
   <a href="#从源码启动">从源码运行</a>
 </p>
 
 北页帮助你更轻快地查阅和编辑 Markdown 文件。快速打开本地文档，在一个专注轻巧的窗口里阅读排版、核对原文、管理多份文件；不要求导入，也不建立私有文档库。
+
+## 项目主页
+
+[访问北页项目主页](https://chenzhiyong1994.github.io/BeiyeMD/?lang=zh)，查看工作区截图、功能介绍，以及 Windows、Apple 芯片 Mac 和 Intel Mac 的下载入口。主页支持中文与 English，手机上也可浏览完整截图和安装说明。
+
+主页由 **GitHub Pages** 托管，源文件位于 `docs/index.html`、`docs/home.css` 和 `docs/home.js`。更新 `main` 分支的 `docs/` 后，[主页部署工作流](.github/workflows/pages.yml) 会自动发布；也可在 Actions 中手动运行 **Deploy project website**。仓库 Settings → Pages 的 Source 应选择 **GitHub Actions**。本地可运行 `python -m http.server 4173 --bind 127.0.0.1 --directory docs` 后访问 `http://127.0.0.1:4173`；发布新版时同步更新主页的版本号、安装包链接和校验文件链接。
 
 ## 1.1.3 · 查找结果自动定位
 

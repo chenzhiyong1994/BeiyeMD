@@ -1,5 +1,5 @@
 (() => {
-  const defaultLanguage = 'en'
+  const defaultLanguage = 'zh'
   const storageKey = 'beiyemd-home-language'
   const supportedLanguages = new Set(['en', 'zh'])
   const languageDetails = {
@@ -47,6 +47,15 @@
     document.documentElement.lang = details.htmlLanguage
     document.title = details.title
     document.querySelector('meta[name="description"]')?.setAttribute('content', details.description)
+    document.querySelector('meta[property="og:title"]')?.setAttribute('content', details.title)
+    document.querySelector('meta[property="og:description"]')?.setAttribute('content', details.description)
+
+    for (const element of document.querySelectorAll('[data-label-en]')) {
+      element.setAttribute('aria-label', element.getAttribute(`data-label-${language}`))
+    }
+    for (const element of document.querySelectorAll('[data-alt-en]')) {
+      element.setAttribute('alt', element.getAttribute(`data-alt-${language}`))
+    }
 
     for (const button of document.querySelectorAll('[data-language-option]')) {
       const active = button.dataset.languageOption === language
@@ -57,8 +66,7 @@
 
     if (updateUrl) {
       const url = new URL(window.location.href)
-      if (language === defaultLanguage) url.searchParams.delete('lang')
-      else url.searchParams.set('lang', language)
+      url.searchParams.set('lang', language)
       window.history.replaceState({}, '', url)
     }
   }

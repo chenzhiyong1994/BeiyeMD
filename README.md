@@ -3,7 +3,7 @@
   <h1>BeiyeMD · 北页</h1>
   <p><strong>A lighter, faster way to open Markdown.</strong></p>
   <p>A quick-launching local Markdown reader and editor that stays focused on the file.</p>
-  <p><strong>English</strong> · <a href="README_CN.md">简体中文</a> · <a href="https://chenzhiyong1994.github.io/BeiyeMD/">Project website</a></p>
+  <p><strong>English</strong> · <a href="README_CN.md">简体中文</a> · <a href="https://chenzhiyong1994.github.io/BeiyeMD/?lang=en">Project website</a></p>
   <p>
     <img src="https://img.shields.io/badge/license-MIT-111111" alt="MIT license">
     <img src="https://img.shields.io/badge/Electron-34-47848F" alt="Electron 34">
@@ -18,12 +18,20 @@
 ![BeiyeMD 1.1 multi-document workspace](docs/screenshots/beiyemd-workspace.png)
 
 <p align="center">
+  <a href="https://chenzhiyong1994.github.io/BeiyeMD/?lang=en"><strong>Visit the project website</strong></a>
+  ·
   <a href="https://github.com/chenzhiyong1994/BeiyeMD/releases/latest"><strong>Download BeiyeMD 1.1.3 for Windows or macOS</strong></a>
   ·
   <a href="#run-from-source">Run from source</a>
 </p>
 
 BeiyeMD helps you read and edit Markdown with less waiting and less clutter. Open local documents quickly, review the formatted page, check the original text, and manage multiple files in one focused window—no import step or proprietary document library required.
+
+## Project website
+
+[Visit the BeiyeMD website](https://chenzhiyong1994.github.io/BeiyeMD/?lang=en) for workspace screenshots, features, and downloads for Windows, Apple silicon Macs, and Intel Macs. The site supports English and Chinese, with full screenshots and installation guidance available on mobile.
+
+The site is hosted on **GitHub Pages**, with its source in `docs/index.html`, `docs/home.css`, and `docs/home.js`. Changes to `docs/` on `main` are published by the [website deployment workflow](.github/workflows/pages.yml); **Deploy project website** can also be run manually from Actions. Set Settings → Pages → Source to **GitHub Actions**. To preview locally, run `python -m http.server 4173 --bind 127.0.0.1 --directory docs` and open `http://127.0.0.1:4173`. When publishing a new app version, update the site's version labels, installer links, and checksum link together.
 
 ## Version 1.1.3 · Find result navigation
 

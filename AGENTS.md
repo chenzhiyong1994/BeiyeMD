@@ -23,6 +23,7 @@
 - 布局和内置主题：`src/renderer/themes/`
 - 打包身份与平台配置：`electron-builder.yml`
 - 用户能力和开发入口：`README_CN.md`、`README.md`
+- 项目主页与 GitHub Pages：`docs/index.html`、`docs/home.css`、`docs/home.js`、`.github/workflows/pages.yml`
 
 ## 最小验证
 
