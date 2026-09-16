@@ -6,16 +6,16 @@ import test from 'node:test'
 const root = resolve(import.meta.dirname, '..')
 const read = (path: string): string => readFileSync(resolve(root, path), 'utf8')
 
-test('项目主页默认英文并提供中文切换', () => {
+test('项目主页默认中文并支持切换英文', () => {
   const html = read('docs/index.html')
   const script = read('docs/home.js')
 
-  assert.match(html, /<html lang="en" data-language="en">/u)
-  assert.match(html, /data-language-option="en"[^>]*aria-pressed="true"/u)
-  assert.match(html, /data-language-option="zh"[^>]*aria-pressed="false"/u)
+  assert.match(html, /<html lang="zh-CN" data-language="zh">/u)
+  assert.match(html, /data-language-option="en"[^>]*aria-pressed="false"/u)
+  assert.match(html, /data-language-option="zh"[^>]*aria-pressed="true"/u)
   assert.match(html, /data-copy="en"/u)
   assert.match(html, /data-copy="zh"/u)
-  assert.match(script, /const defaultLanguage = 'en'/u)
+  assert.match(script, /const defaultLanguage = 'zh'/u)
   assert.match(script, /localStorage\.setItem/u)
   assert.match(script, /URLSearchParams/u)
 })

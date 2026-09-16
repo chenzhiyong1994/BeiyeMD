@@ -1,5 +1,12 @@
 # Recent Updates
 
+## v1.1.4 · Remember each document's reading position
+
+- Each open document remembers its own cursor and reading progress, restoring them when you return instead of inheriting another document's scroll position.
+- Position restoration works in Preview and Source; first visits start at the top.
+- Rapid Preview / Source changes and creating or closing documents preserve the correct position and source line numbers.
+- Positions stay in the current window and are cleared when a document closes; unsaved drafts still survive document switches.
+
 ## v1.1.3 · Find result navigation
 
 - Navigating search results in Preview and Source scrolls directly to the active match, including in long documents.

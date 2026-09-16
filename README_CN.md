@@ -9,7 +9,7 @@
     <img src="https://img.shields.io/badge/Electron-34-47848F" alt="Electron 34">
     <img src="https://img.shields.io/badge/TypeScript-5-3178C6" alt="TypeScript 5">
     <img src="https://img.shields.io/badge/数据-本地优先-D85F42" alt="本地优先">
-    <img src="https://img.shields.io/badge/版本-1.1.3-111111" alt="BeiyeMD 1.1.3">
+    <img src="https://img.shields.io/badge/版本-1.1.4-111111" alt="BeiyeMD 1.1.4">
     <img src="https://img.shields.io/github/v/release/chenzhiyong1994/BeiyeMD?display_name=tag&color=111111" alt="最新版本">
     <img src="https://img.shields.io/github/stars/chenzhiyong1994/BeiyeMD?style=flat&color=111111" alt="GitHub stars">
   </p>
@@ -20,7 +20,7 @@
 <p align="center">
   <a href="https://chenzhiyong1994.github.io/BeiyeMD/?lang=zh"><strong>访问项目主页</strong></a>
   ·
-  <a href="https://github.com/chenzhiyong1994/BeiyeMD/releases/latest"><strong>下载 BeiyeMD 1.1.3（Windows / macOS）</strong></a>
+  <a href="https://github.com/chenzhiyong1994/BeiyeMD/releases/latest"><strong>下载 BeiyeMD 1.1.4（Windows / macOS）</strong></a>
   ·
   <a href="#从源码启动">从源码运行</a>
 </p>
@@ -29,13 +29,13 @@
 
 ## 项目主页
 
-[访问北页项目主页](https://chenzhiyong1994.github.io/BeiyeMD/?lang=zh)，查看工作区截图、功能介绍，以及 Windows、Apple 芯片 Mac 和 Intel Mac 的下载入口。主页支持中文与 English，手机上也可浏览完整截图和安装说明。
+[访问北页项目主页](https://chenzhiyong1994.github.io/BeiyeMD/?lang=zh)，查看工作区截图、功能介绍，以及 Windows、Apple 芯片 Mac 和 Intel Mac 的下载入口。主页默认简体中文，可切换 English 并记住选择，手机上也可浏览完整截图和安装说明。
 
 主页由 **GitHub Pages** 托管，源文件位于 `docs/index.html`、`docs/home.css` 和 `docs/home.js`。更新 `main` 分支的 `docs/` 后，[主页部署工作流](.github/workflows/pages.yml) 会自动发布；也可在 Actions 中手动运行 **Deploy project website**。仓库 Settings → Pages 的 Source 应选择 **GitHub Actions**。本地可运行 `python -m http.server 4173 --bind 127.0.0.1 --directory docs` 后访问 `http://127.0.0.1:4173`；发布新版时同步更新主页的版本号、安装包链接和校验文件链接。
 
-## 1.1.3 · 查找结果自动定位
+## 1.1.4 · 记住每份文档的阅读位置
 
-查找替换现在会在预览和源码模式中自动滚动到当前结果，长文档也能直接定位。查找面板保留输入焦点，可连续按 Enter / Shift+Enter 切换匹配；填写替换文本时也会保留当前结果。安装包与统一的 SHA-256 校验文件发布在 [GitHub Releases](https://github.com/chenzhiyong1994/BeiyeMD/releases/tag/v1.1.3)。
+每份打开的文档现在独立记住光标与阅读进度，在 A、B 文档之间切换时自动恢复各自的位置。预览和源码模式均支持，首次查看从顶部开始；快速切换模式、新建或关闭文档也不会串用位置。安装包与统一的 SHA-256 校验文件发布在 [GitHub Releases](https://github.com/chenzhiyong1994/BeiyeMD/releases/tag/v1.1.4)。
 
 - **打开就能看，随手就能改**：不注册账号，不迁移文档，选择本地 Markdown 文件即可开始。
 - **排版和源码不割裂**：预览模式看结构，源码模式用固定行号与查找高亮定位语法。
@@ -93,9 +93,9 @@
 
 | 系统 | 适用设备 | 下载文件 |
 | --- | --- | --- |
-| Windows x64 | 常见的 64 位 Windows 电脑 | `BeiyeMD-Setup-1.1.3-Windows-x64.exe` |
-| macOS arm64 | M1、M2、M3、M4 等 Apple 芯片 Mac | `BeiyeMD-1.1.3-mac-arm64.dmg` |
-| macOS x64 | Intel 芯片 Mac | `BeiyeMD-1.1.3-mac-x64.dmg` |
+| Windows x64 | 常见的 64 位 Windows 电脑 | `BeiyeMD-Setup-1.1.4-Windows-x64.exe` |
+| macOS arm64 | M1、M2、M3、M4 等 Apple 芯片 Mac | `BeiyeMD-1.1.4-mac-arm64.dmg` |
+| macOS x64 | Intel 芯片 Mac | `BeiyeMD-1.1.4-mac-x64.dmg` |
 
 请从 [GitHub Releases](https://github.com/chenzhiyong1994/BeiyeMD/releases/latest) 下载，并使用同页的 `SHA256SUMS.txt` 核对文件。Windows 社区构建暂未进行商业代码签名，SmartScreen 可能要求二次确认；macOS 构建采用临时签名，**未经 Apple 公证**，首次打开时系统可能拦截。确认文件来自本项目官方 GitHub 且校验值一致后，可按 [macOS 安装与安全提示](docs/macos-installation.md) 操作。
 

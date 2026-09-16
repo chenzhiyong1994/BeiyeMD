@@ -9,7 +9,7 @@
     <img src="https://img.shields.io/badge/Electron-34-47848F" alt="Electron 34">
     <img src="https://img.shields.io/badge/TypeScript-5-3178C6" alt="TypeScript 5">
     <img src="https://img.shields.io/badge/data-local--first-D85F42" alt="Local-first">
-    <img src="https://img.shields.io/badge/version-1.1.3-111111" alt="BeiyeMD 1.1.3">
+    <img src="https://img.shields.io/badge/version-1.1.4-111111" alt="BeiyeMD 1.1.4">
     <img src="https://img.shields.io/github/v/release/chenzhiyong1994/BeiyeMD?display_name=tag&color=111111" alt="Latest release">
     <img src="https://img.shields.io/github/stars/chenzhiyong1994/BeiyeMD?style=flat&color=111111" alt="GitHub stars">
   </p>
@@ -20,7 +20,7 @@
 <p align="center">
   <a href="https://chenzhiyong1994.github.io/BeiyeMD/?lang=en"><strong>Visit the project website</strong></a>
   ·
-  <a href="https://github.com/chenzhiyong1994/BeiyeMD/releases/latest"><strong>Download BeiyeMD 1.1.3 for Windows or macOS</strong></a>
+  <a href="https://github.com/chenzhiyong1994/BeiyeMD/releases/latest"><strong>Download BeiyeMD 1.1.4 for Windows or macOS</strong></a>
   ·
   <a href="#run-from-source">Run from source</a>
 </p>
@@ -29,13 +29,13 @@ BeiyeMD helps you read and edit Markdown with less waiting and less clutter. Ope
 
 ## Project website
 
-[Visit the BeiyeMD website](https://chenzhiyong1994.github.io/BeiyeMD/?lang=en) for workspace screenshots, features, and downloads for Windows, Apple silicon Macs, and Intel Macs. The site supports English and Chinese, with full screenshots and installation guidance available on mobile.
+[Visit the BeiyeMD website](https://chenzhiyong1994.github.io/BeiyeMD/?lang=en) for workspace screenshots, features, and downloads for Windows, Apple silicon Macs, and Intel Macs. The site defaults to Simplified Chinese, supports switching to English, and remembers your choice. Full screenshots and installation guidance are also available on mobile.
 
 The site is hosted on **GitHub Pages**, with its source in `docs/index.html`, `docs/home.css`, and `docs/home.js`. Changes to `docs/` on `main` are published by the [website deployment workflow](.github/workflows/pages.yml); **Deploy project website** can also be run manually from Actions. Set Settings → Pages → Source to **GitHub Actions**. To preview locally, run `python -m http.server 4173 --bind 127.0.0.1 --directory docs` and open `http://127.0.0.1:4173`. When publishing a new app version, update the site's version labels, installer links, and checksum link together.
 
-## Version 1.1.3 · Find result navigation
+## Version 1.1.4 · Remember each document's reading position
 
-Find and Replace now scrolls to the active result in both Preview and Source, making matches easy to locate in long documents. Search focus stays in the panel for repeated Enter / Shift+Enter navigation, and typing replacement text keeps the current result selected. Installers and one SHA-256 checksum file are published on [GitHub Releases](https://github.com/chenzhiyong1994/BeiyeMD/releases/tag/v1.1.3).
+Each open document now remembers its own cursor and reading progress when switching between documents. This works in Preview and Source, with first visits starting at the top. Rapid mode changes and creating or closing documents also preserve the right position. Installers and one SHA-256 checksum file are published on [GitHub Releases](https://github.com/chenzhiyong1994/BeiyeMD/releases/tag/v1.1.4).
 
 - **Open, read, and make a quick edit** — no account, migration, or proprietary library.
 - **Review layout and syntax** — Preview reveals the reading experience; Source adds fixed line numbers and search highlighting.
@@ -93,9 +93,9 @@ The same shortcuts are discoverable from the footer of the document sidebar.
 
 | System | Device | Download |
 | --- | --- | --- |
-| Windows x64 | Most 64-bit Windows PCs | `BeiyeMD-Setup-1.1.3-Windows-x64.exe` |
-| macOS arm64 | Macs with Apple silicon (M1, M2, M3, M4, and later) | `BeiyeMD-1.1.3-mac-arm64.dmg` |
-| macOS x64 | Intel-based Macs | `BeiyeMD-1.1.3-mac-x64.dmg` |
+| Windows x64 | Most 64-bit Windows PCs | `BeiyeMD-Setup-1.1.4-Windows-x64.exe` |
+| macOS arm64 | Macs with Apple silicon (M1, M2, M3, M4, and later) | `BeiyeMD-1.1.4-mac-arm64.dmg` |
+| macOS x64 | Intel-based Macs | `BeiyeMD-1.1.4-mac-x64.dmg` |
 
 Download from [GitHub Releases](https://github.com/chenzhiyong1994/BeiyeMD/releases/latest) and compare the file with `SHA256SUMS.txt` on the same page. The Windows community build is not commercially code-signed, so SmartScreen may ask for confirmation. The macOS build uses an ad-hoc signature and is **not notarized by Apple**, so macOS may block the first launch. Only proceed when the download came from this official repository and its checksum matches; see [macOS installation and safety](docs/macos-installation.md).
 
