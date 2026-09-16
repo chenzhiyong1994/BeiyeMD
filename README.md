@@ -55,6 +55,7 @@ Find and Replace now scrolls to the active result in both Preview and Source, ma
 ## Highlights
 
 - Multi-select Open, drag-and-drop, recent documents, `Ctrl/Cmd + P` Quick Open, and cross-document content search.
+- Each open document in a window remembers its own cursor and reading progress when switching documents; first visits start at the top.
 - Resizable document sidebar with compact `Doc / TOC` states, heading outline, filename ellipsis, and close controls only when they are useful.
 - Preview-first editing plus complete Markdown source, preserved cursor/reading progress between modes, soft wrapping, fixed line numbers, and a visible source scrollbar.
 - Find and Replace highlights matches and automatically scrolls to the active result in preview and source modes while keeping focus in the search panel. Includes case, whole-word, regular-expression, replace-one, and replace-all controls.
@@ -128,6 +129,8 @@ npx tsc -p tsconfig.renderer.json --noEmit
 npm run build
 npm run check:find-replace-ui
 ```
+
+The UI regression check covers find navigation, per-document positions, Preview / Source switching, new and closed documents, saving, and languages.
 
 ## Project scope
 

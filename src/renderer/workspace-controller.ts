@@ -41,6 +41,7 @@ export class WorkspaceController {
   private activeId: string | null = null
   private dirty = false
   private readonly cleanMarkdown = new Map<string, string>()
+  private readonly documentAnchors = new Map<string, RelativeViewAnchor>()
   private readonly markdownBuffer = new DocumentMarkdownBuffer()
   private applyingMarkdown = false
   private pendingDocument: DocumentPayload | null = null
@@ -274,8 +275,12 @@ export class WorkspaceController {
     for (const id of this.cleanMarkdown.keys()) {
       if (!documentIds.has(id)) this.cleanMarkdown.delete(id)
     }
+    for (const id of this.documentAnchors.keys()) {
+      if (!documentIds.has(id)) this.documentAnchors.delete(id)
+    }
     this.markdownBuffer.retain(documentIds)
-    if (payload.activeDocumentId) this.activeId = payload.activeDocumentId
+    // The list arrives before the content. Keep activeId tied to the displayed
+    // document until openDocument can capture its position and replace it.
     this.dirty = this.activeDocument()?.dirty ?? this.dirty
     this.renderDocuments()
     this.updateHeader()
@@ -286,6 +291,10 @@ export class WorkspaceController {
       this.pendingDocument = payload
       return
     }
+    if (this.activeId && this.activeDocument()) {
+      this.documentAnchors.set(this.activeId, this.captureModeAnchor())
+    }
+    const anchor = this.documentAnchors.get(payload.id) ?? { cursorRatio: 0, scrollRatio: 0 }
     this.activeId = payload.id
     this.dirty = payload.dirty
     this.markdownBuffer.load(payload.id, payload.content)
@@ -296,6 +305,7 @@ export class WorkspaceController {
     this.renderDocuments()
     this.updateHeader(payload.content)
     this.search?.refresh()
+    this.restoreModeAnchor(this.mode, anchor, false)
   }
 
   private applyMarkdown(markdown: string, path = this.activeDocument()?.path): void {
@@ -394,8 +404,9 @@ export class WorkspaceController {
     this.mode = mode
     this.updateHeader()
     this.search?.refresh()
+    // Restore before another document/mode change can capture this viewport.
+    this.restoreModeAnchor(mode, anchor)
     requestAnimationFrame(() => {
-      this.restoreModeAnchor(mode, anchor)
       this.updatePlaceholder()
       this.tableTools?.update()
     })
@@ -421,7 +432,7 @@ export class WorkspaceController {
     })
   }
 
-  private restoreModeAnchor(mode: EditorMode, anchor: RelativeViewAnchor): void {
+  private restoreModeAnchor(mode: EditorMode, anchor: RelativeViewAnchor, focus = true): void {
     const { editor, source, sourceLineNumbers, sourceSearchHighlights } = this.view.elements
     if (mode === 'markdown') {
       const position = restoreRelativeViewAnchor(anchor, {
@@ -430,7 +441,7 @@ export class WorkspaceController {
         viewportHeight: source.clientHeight
       })
       source.setSelectionRange(position.cursorOffset, position.cursorOffset)
-      source.focus({ preventScroll: true })
+      if (focus) source.focus({ preventScroll: true })
       source.scrollTop = position.scrollTop
       sourceLineNumbers.scrollTop = position.scrollTop
       sourceSearchHighlights.style.transform = `translateY(${-position.scrollTop}px)`
@@ -441,7 +452,7 @@ export class WorkspaceController {
       scrollHeight: editor.scrollHeight,
       viewportHeight: editor.clientHeight
     })
-    this.editor?.restoreCursor(position.cursorOffset)
+    this.editor?.restoreCursor(position.cursorOffset, focus)
     editor.scrollTop = position.scrollTop
   }
 

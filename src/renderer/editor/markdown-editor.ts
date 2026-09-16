@@ -178,12 +178,12 @@ export class MarkdownEditor {
     return this.view()?.state.doc.content.size ?? 0
   }
 
-  restoreCursor(position: number): void {
+  restoreCursor(position: number, focus = true): void {
     const view = this.view()
     if (!view) return
     const offset = Math.min(view.state.doc.content.size, Math.max(0, Math.round(position)))
     view.dispatch(view.state.tr.setSelection(TextSelection.near(view.state.doc.resolve(offset))))
-    view.focus()
+    if (focus) view.focus()
   }
 
   setLanguage(language: Language): void {

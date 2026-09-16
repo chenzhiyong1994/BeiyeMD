@@ -4,6 +4,7 @@ import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { checkDocumentPositions } from './check-document-positions.mjs'
 
 const root = resolve(fileURLToPath(new URL('..', import.meta.url)))
 
@@ -270,6 +271,7 @@ if (!process.versions.electron) {
     assert.equal(BrowserWindow.getAllWindows().length, 2)
     next.destroy()
     console.log('Workspace smoke checks passed: save, multiple files, document switching, languages, new window')
+    await checkDocumentPositions(run, directory)
     clearTimeout(deadline)
     app.exit(0)
   } catch (error) {
